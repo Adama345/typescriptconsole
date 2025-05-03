@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "target": "ES2020",
+        "module": "CommonJS",
+        "noEmitOnError": true,
+        "strict": true,
+    },
+    "files": [
+        "src/app.ts"
+        // "src/depenseManager.ts"
+    ]
+}

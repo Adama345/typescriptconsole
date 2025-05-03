@@ -1,0 +1,19 @@
+# Node.js
+node_modules/
+.env
+package-lock.json
+
+# TypeScript
+dist/
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# VSCode
+.vscode/
