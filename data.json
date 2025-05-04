@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": 1746317895597,
+    "nom": "Samake",
+    "prenom": "Abdoul Ibrahima Samake",
+    "telephone": "71267813",
+    "password": "qwerty",
+    "role": [
+      "Chef de group"
+    ],
+    "email": "samabdoul03@gmail.com"
+  }
+]
