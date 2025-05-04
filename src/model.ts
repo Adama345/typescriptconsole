@@ -1,4 +1,4 @@
-type Role = "membre" | "chef";
+type Role = "membre" | "Chef de group";
 
 export interface Utilisateur {
     id: number;

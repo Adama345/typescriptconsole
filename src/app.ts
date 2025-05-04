@@ -1,19 +1,6 @@
-import { Utilisateur, Groupe, Depense, Payer, Rapport } from "./model";
-import {
-    loadDepense,
-    loadGroupe,
-    loadPayer,
-    loadRapport,
-    loadUser,
-    savePayer,
-    saveRapport,
-    saveUser,
-    savedepense,
-    savegroupe,
-} from "./depenseManager";
 import inquirer from "inquirer";
-
-let Utilisateur: Utilisateur[] = loadUser();
+import { createAcount } from "./features/createCompte";
+import { seconnecter } from "./features/authentification";
 
 async function main() {
     const { action } = await inquirer.prompt([
@@ -27,9 +14,10 @@ async function main() {
 
     switch (action) {
         case "Creer un compte":
+            await createAcount();
             break;
-
-        case "se connecter":
+        case "Se connecter":
+            await seconnecter();
             break;
         case "Quitter":
             console.log("Au revoir");
