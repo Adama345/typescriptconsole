@@ -2,7 +2,7 @@ import { Utilisateur } from "../model";
 import { loadUser, saveUser } from "../depenseManager";
 import inquirer from "inquirer";
 
-let User: Utilisateur[] = loadUser();
+// let User: Utilisateur[] = loadUser();
 
 export async function gestionCompte(user: Utilisateur): Promise<boolean> {
     const { action } = await inquirer.prompt([
@@ -63,13 +63,15 @@ export async function gestionCompte(user: Utilisateur): Promise<boolean> {
             }
 
             // Met à jour la liste complète des utilisateurs
+            const User = loadUser();
             const index = User.findIndex((u) => u.id === user.id);
             if (index !== -1) {
-                User[index] = user;
+                // User[index] = user;
+                // saveUser(User);
+                User[index] = { ...user };
                 saveUser(User);
                 console.log(" Information mise à jour !");
             }
-
             const { encore } = await inquirer.prompt([
                 {
                     type: "confirm",
@@ -91,8 +93,9 @@ export async function gestionCompte(user: Utilisateur): Promise<boolean> {
             },
         ]);
         if (confirmation) {
-            User = User.filter((u) => u.id !== user.id);
-            saveUser(User);
+            const User = loadUser();
+            const newUser = User.filter((u) => u.id !== user.id);
+            saveUser(newUser);
             console.log("🗑️ Compte supprimé !");
             return true;
         }

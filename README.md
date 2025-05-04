@@ -25,7 +25,7 @@ Elle permet de **suivre, gérer et organiser les dépenses** au sein d’un grou
     cd typescriptconsole
 ```
 
-2. installer les dependances
+2. **installer les dependances**
 
 ```bash
     npm install
@@ -33,7 +33,7 @@ Elle permet de **suivre, gérer et organiser les dépenses** au sein d’un grou
     npx tsc
 ```
 
-3. Excecuter le code
+3. **Excecuter le code**
 
 ```bash
     node dist/app.js
