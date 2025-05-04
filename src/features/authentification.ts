@@ -1,8 +1,9 @@
 import { Utilisateur } from "../model";
-import { loadUser, saveUser } from "../depenseManager";
+import { loadUser } from "../depenseManager";
 import inquirer from "inquirer";
+import { gestionCompte } from "./gererCompte";
 
-let User: Utilisateur[] = loadUser();
+// let User: Utilisateur[] = loadUser();
 export async function seconnecter() {
     const loginInfo = await inquirer.prompt([
         {
@@ -16,7 +17,8 @@ export async function seconnecter() {
             message: "Votre mot de passe :",
         },
     ]);
-    const user = User.find(
+    const users = loadUser();
+    const user = users.find(
         (u) =>
             u.telephone === loginInfo.telephone &&
             u.password === loginInfo.password
@@ -25,7 +27,6 @@ export async function seconnecter() {
     if (user) {
         console.log(`Connexion reussie`);
         await menuUtilisateur(user);
-        // Ici, tu peux stocker l'utilisateur connecté pour les autres actions
     } else {
         console.log("Identifiants incorrects !");
     }
@@ -51,6 +52,12 @@ async function menuUtilisateur(user: Utilisateur) {
         case "Voir mes goupes":
             break;
         case "Gerer Mon Compte":
+            // await gestionCompte(user);
+            const shouldLogout = await gestionCompte(user);
+            if (shouldLogout) {
+                console.log("Vous êtes maintenant déconnecté.");
+                return; // Quitter le menu utilisateur
+            }
             break;
         case "Me deconnecter":
             console.log("Déconnexion effectuée !");
