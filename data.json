@@ -9,5 +9,23 @@
       "Chef de group"
     ],
     "email": "samabdoul03@gmail.com"
+  },
+  {
+    "id": 1746387554089,
+    "nom": "Madyeh Sylla",
+    "prenom": "Tenen",
+    "telephone": "74323874",
+    "password": "123",
+    "role": [],
+    "email": "madyehsylla427@gmail.com"
+  },
+  {
+    "id": 1746437402807,
+    "nom": "ColDepense",
+    "description": "Ce groupe a pour but de collecter un budget pour acheter un Mouton",
+    "membreId": [
+      1746387554089
+    ],
+    "chefDeGroupe": 1746387554089
   }
 ]
