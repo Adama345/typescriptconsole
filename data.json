@@ -11,6 +11,15 @@
     "email": "samabdoul03@gmail.com"
   },
   {
+    "id": 1746393210556,
+    "nom": "aissatou",
+    "prenom": "c",
+    "telephone": "60 1333333",
+    "password": "AZERTY",
+    "role": [],
+    "email": "coulibalyaissatou3@gmail.com"
+  },
+  }
 
     "id": 1746447405476,
     "nom": "Nantenin",
@@ -19,7 +28,7 @@
     "password": "Nene100",
     "role": [],
     "email": "knanete@gmail.com"
-  }
+  },
   {
     "id": 1746387554089,
     "nom": "Madyeh Sylla",
@@ -37,6 +46,5 @@
       1746387554089
     ],
     "chefDeGroupe": 1746387554089
-  }
   }
 ]
