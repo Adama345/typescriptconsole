@@ -1,21 +1,31 @@
-import { Groupe,Utilisateur} from "../model";
-import {loadGroupe, savegroupe}from"../depenseManager" ;
+import { Groupe, Utilisateur } from "../model";
+import { loadGroupe, savegroupe } from "../depenseManager";
 import inquirer from "inquirer";
 
-const groupe: Groupe[] = loadGroupe()
+export async function deleteGroup(groupe: Groupe) {
+    const groupes: Groupe[] = loadGroupe();
+    // let mygroup = groupe.filter((j) => j.chefDeGroupe === user.id);
 
-export async function deleteGroup(user:Utilisateur) {
-    let mygroup = groupe.filter((j)=> j.chefDeGroupe === user.id )
+    // const { actionid } = await inquirer.prompt({
+    //     type: "list",
+    //     name: "actionid",
+    //     message: "Quel groupe souhaitez vous supprimer ?",
+    //     choices: mygroup.map((g) => ({ name: g.nom, value: g.id })),
+    // });
 
-    const {actionid} =await inquirer.prompt({
-        type:'list',
-        name : "actionid",
-        message : "Quel groupe souhaitez vous supprimer ?",
-        choices : mygroup.map((g)=>({name:g.nom , value:g.id})),
+    // mygroup = mygroup.filter((g)=>g.id !== actionid)
 
-    });
-
-    mygroup = mygroup.filter((g)=>g.id !== actionid)
-    savegroupe(mygroup)
-
+    const { confirm } = await inquirer.prompt([
+        {
+            type: "confirm",
+            name: "confirm",
+            message: `Voulez-vous vraiment supprimer le groupe "${groupe.nom}" ?`,
+        },
+    ]);
+    if (confirm) {
+        const newGroupes = groupes.filter((g) => g.id !== groupe.id);
+        savegroupe(newGroupes);
+        console.log("groupe supprimé !");
+        return true;
+    }
 }

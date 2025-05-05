@@ -29,12 +29,23 @@
     "email": "madyehsylla427@gmail.com"
   },
   {
-    "id": 1746437402807,
-    "nom": "ColDepense",
-    "description": "Ce groupe a pour but de collecter un budget pour acheter un Mouton",
+    "id": 1746469158911,
+    "nom": "GLO",
+    "description": "AU",
     "membreId": [
       1746387554089
     ],
     "chefDeGroupe": 1746387554089
+  },
+  {
+    "id": 1746469670202,
+    "nom": "Seydou",
+    "prenom": "Dembele",
+    "telephone": "82232685",
+    "password": "qwerty",
+    "role": [
+      "Chef de group"
+    ],
+    "email": "dem@gmail.com"
   }
 ]
