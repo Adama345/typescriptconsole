@@ -9,5 +9,14 @@
       "Chef de group"
     ],
     "email": "samabdoul03@gmail.com"
+  },
+  {
+    "id": 1746393210556,
+    "nom": "aissatou",
+    "prenom": "c",
+    "telephone": "60 1333333",
+    "password": "AZERTY",
+    "role": [],
+    "email": "coulibalyaissatou3@gmail.com"
   }
 ]
