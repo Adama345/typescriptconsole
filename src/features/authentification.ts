@@ -1,9 +1,12 @@
 import { Utilisateur } from "../model";
-import { loadUser } from "../depenseManager";
+import { loadUser,loadGroupe } from "../depenseManager";
 import inquirer from "inquirer";
 import { gestionCompte } from "./gererCompte";
+import {listerGroupes} from "./listergroupe"
+import {Groupe} from "../model"
 
 // let User: Utilisateur[] = loadUser();
+const groupe:Groupe[] = loadGroupe();
 export async function seconnecter() {
     const loginInfo = await inquirer.prompt([
         {
@@ -50,6 +53,7 @@ async function menuUtilisateur(user: Utilisateur) {
         case "Creer un groupe":
             break;
         case "Voir mes goupes":
+            await listerGroupes(groupe)
             break;
         case "Gerer Mon Compte":
             // await gestionCompte(user);
