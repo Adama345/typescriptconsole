@@ -11,6 +11,16 @@
     "email": "samabdoul03@gmail.com"
   },
   {
+
+    "id": 1746447405476,
+    "nom": "Nantenin",
+    "prenom": "Keita",
+    "telephone": "70181600",
+    "password": "Nene100",
+    "role": [],
+    "email": "knanete@gmail.com"
+  }
+  {
     "id": 1746387554089,
     "nom": "Madyeh Sylla",
     "prenom": "Tenen",
@@ -27,5 +37,6 @@
       1746387554089
     ],
     "chefDeGroupe": 1746387554089
+  }
   }
 ]
