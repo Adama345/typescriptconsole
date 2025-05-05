@@ -3,7 +3,7 @@ import { loadGroupe, loadUser } from "../depenseManager";
 import inquirer from "inquirer";
 import { gestionCompte } from "./gererCompte";
 import { createGroupe } from "./createGroupe";
-import { group } from "console";
+import {afficherGroupes} from "./listerGroupe";
 // let User: Utilisateur[] = loadUser();
 export async function seconnecter() {
   const loginInfo = await inquirer.prompt([
@@ -37,7 +37,7 @@ async function menuUtilisateur(user: Utilisateur) {
     {
       type: "list",
       name: "action",
-      message: `Bienvenue Sur votre compe ${user.prenom}`,
+      message: `Bienvenue Sur votre compte ${user.prenom}`,
       choices: [
         "Creer un groupe",
         "Voir mes goupes",
@@ -51,6 +51,7 @@ async function menuUtilisateur(user: Utilisateur) {
       await createGroupe(user);
       break;
     case "Voir mes goupes":
+      await afficherGroupes(user);
       break;
     case "Gerer Mon Compte":
       // await gestionCompte(user);
