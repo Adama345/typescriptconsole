@@ -21,6 +21,17 @@
         "Membre"
       ],
       "email": "demassim3@gmail.com"
+    },
+    {
+      "id": 1746551608727,
+      "nom": "BAH",
+      "prenom": "Ibrahim",
+      "telephone": "94163095",
+      "password": "bah",
+      "role": [
+        "Chef de group"
+      ],
+      "email": "bah49983@gmail.com"
     }
   ],
   "groups": [
@@ -50,9 +61,43 @@
         1746533457823
       ],
       "chefDeGroupe": 1746533457823
+    },
+    {
+      "id": 1746551763148,
+      "nom": "Courses pour le dîner collectif",
+      "description": "Cette dépense regroupe tous les achats alimentaires et boissons réalisés pour organiser un repas partagé entre les membres du groupe, que ce soit dans un cadre familial, associatif ou amical.",
+      "membreId": [
+        1746551608727
+      ],
+      "chefDeGroupe": 1746551608727
     }
   ],
-  "depenses": [],
+  "depenses": [
+    {
+      "id": 1,
+      "nom": "Achat de boissons et desserts",
+      "montant": 100000,
+      "date": "2025-05-06T00:00:00.000Z",
+      "chefDeGroupe": 1746551608727
+    },
+    {
+      "id": 2,
+      "nom": "Sortie",
+      "montant": 200000,
+      "date": "2025-05-06T00:00:00.000Z",
+      "chefDeGroupe": 1746551608727
+    },
+    {
+      "id": 3,
+      "nom": "Achat de fournitures pour le projet commun",
+      "montant": 1000000,
+      "membreId": [
+        1746551608727
+      ],
+      "date": "2025-05-06T00:00:00.000Z",
+      "chefDeGroupe": 1746551608727
+    }
+  ],
   "Rapport": [],
   "Payer": []
 }

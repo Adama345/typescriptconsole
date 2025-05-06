@@ -1,8 +1,9 @@
 import inquirer from "inquirer";
 import {loadDepense, savedepense} from "../depenseManager"
-import { Depense } from "../model";
+import { Depense,Utilisateur } from "../model";
 
-export async function ajouterDepense(chefDeGroupeId: number) {
+
+export async function ajouterDepense(user:Utilisateur) {
     let depenses: Depense[] = loadDepense().depenses;
   
     const answers = await inquirer.prompt([
@@ -32,15 +33,16 @@ export async function ajouterDepense(chefDeGroupeId: number) {
         id: depenses.length > 0 ? depenses[depenses.length - 1].id + 1 : 1,
         nom: answers.nom,
         montant: answers.montant,
+        membreId: [user.id],
         date: new Date(answers.date),
-        chefDeGroupe: chefDeGroupeId
+        chefDeGroupe: user.id
     };
 
 
     depenses.push(nouvelleDepense);
     savedepense(depenses);
 
-    console.log("✅ Dépense ajoutée avec succès !");
+    console.log("Dépense ajoutée avec succès !");
     console.log(nouvelleDepense);
     
   }

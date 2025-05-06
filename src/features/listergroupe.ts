@@ -2,6 +2,7 @@ import { Groupe, Utilisateur } from "../model";
 import { loadGroupe } from "../depenseManager";
 import inquirer from "inquirer";
 import { deleteGroup } from "./supprimergroupe";
+import { ajouterDepense } from "./ajouterDepense";
 
 export async function afficherGroupes(user: Utilisateur) {
     const { groupes } = loadGroupe();
@@ -53,7 +54,7 @@ export async function afficherGroupes(user: Utilisateur) {
         ]);
         switch (action) {
             case "Ajouter une depense":
-                console.log("ajouter une depense");
+                await ajouterDepense(user)
                 break;
             case "Voir les membres":
                 console.log("voir les depenses");
