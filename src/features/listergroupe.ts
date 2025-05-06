@@ -6,6 +6,7 @@ import { deleteGroup } from "./supprimergroupe";
 import { ajouterMembreAuGroupe } from "./ajoutMembre";
 import { afficherMembresDuGroupe } from "./Affichermenbre";
 import { supprimerMembreDuGroupe } from "./supprimermembre";
+import { modifierGroupe } from "./modifierGroupes";
 
 export async function afficherGroupes(user: Utilisateur) {
     const { groupes } = loadGroupe();
@@ -79,7 +80,12 @@ export async function afficherGroupes(user: Utilisateur) {
                 }
                 break;
             case "Modifier Groupe":
-                await console.log("modifier le groupe");
+                const modifierGroup = mesGroupes.find(
+                    (g) => g.id === groupeChoisi
+                );
+                if (modifierGroup) {
+                    await modifierGroupe(modifierGroup);
+                }
                 break;
             case "Supprimer um membre":
                 const supprimerMembre = mesGroupes.find(
