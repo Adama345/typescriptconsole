@@ -1,4 +1,4 @@
-import { Groupe, Utilisateur } from "../model";
+import { Groupe } from "../model";
 import { loadGroupe, savegroupe } from "../depenseManager";
 import inquirer from "inquirer";
 

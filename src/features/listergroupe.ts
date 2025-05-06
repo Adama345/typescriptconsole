@@ -45,6 +45,7 @@ export async function afficherGroupes(user: Utilisateur) {
                     "Ajouter une depense",
                     "Voir les membres",
                     "Ajouter des membres",
+                    "Modifier Groupe",
                     "Supprimer um membre",
                     "Supprimer le groupe",
                     "Retour",
