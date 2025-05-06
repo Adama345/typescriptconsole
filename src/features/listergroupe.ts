@@ -3,6 +3,10 @@ import { loadGroupe } from "../depenseManager";
 import inquirer from "inquirer";
 import { deleteGroup } from "./supprimergroupe";
 
+import { ajouterMembreAuGroupe } from "./ajoutMembre";
+import { afficherMembresDuGroupe } from "./Affichermenbre";
+import { supprimerMembreDuGroupe } from "./supprimermembre";
+
 export async function afficherGroupes(user: Utilisateur) {
     const { groupes } = loadGroupe();
 
@@ -10,6 +14,8 @@ export async function afficherGroupes(user: Utilisateur) {
     const joiGroupes = groupes.filter((g) => g.membreId?.includes(user.id));
     //cette variable stocke les groupe que j'ai creer
     const mesGroupes = groupes.filter((g) => g.chefDeGroupe === user.id);
+
+    const dGroup = joiGroupes.concat(mesGroupes);
 
     // const lesGroupe = joiGroupes.concat(mesGroupes);
     const groupeMap = new Map<number, Groupe>();
@@ -57,14 +63,31 @@ export async function afficherGroupes(user: Utilisateur) {
                 console.log("ajouter une depense");
                 break;
             case "Voir les membres":
-                console.log("voir les depenses");
+                const voirMembre = mesGroupes.find(
+                    (g) => g.id === groupeChoisi
+                );
+                if (voirMembre) {
+                    await afficherMembresDuGroupe(voirMembre);
+                }
                 break;
             case "Ajouter des membres":
-                console.log("Ajouter des membres");
+                const ajoutMembre = mesGroupes.find(
+                    (g) => g.id === groupeChoisi
+                );
+                if (ajoutMembre) {
+                    await ajouterMembreAuGroupe(ajoutMembre);
+                }
+                break;
+            case "Modifier Groupe":
+                await console.log("modifier le groupe");
                 break;
             case "Supprimer um membre":
-                console.log("Supprimer um membre");
-
+                const supprimerMembre = mesGroupes.find(
+                    (g) => g.id === groupeChoisi
+                );
+                if (supprimerMembre) {
+                    await supprimerMembreDuGroupe(supprimerMembre);
+                }
                 break;
             case "Supprimer le groupe":
                 const groupeASupprimer = mesGroupes.find(
