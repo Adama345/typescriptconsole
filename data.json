@@ -25,15 +25,6 @@
   ],
   "groups": [
     {
-      "id": 1746533625548,
-      "nom": "coldepennce",
-      "description": "cotissation pour acheter des ordi",
-      "membreId": [
-        1746533457823
-      ],
-      "chefDeGroupe": 1746533457823
-    },
-    {
       "id": 1746533723803,
       "nom": "Groupe1",
       "description": "creation d'une application de depense collaboratif",
@@ -42,6 +33,24 @@
         1746533457823
       ],
       "chefDeGroupe": 1746533526172
+    },
+    {
+      "id": 1746545690797,
+      "nom": "groupe3",
+      "description": "Depense pour voyager en chine",
+      "membreId": [
+        1746533457823
+      ],
+      "chefDeGroupe": 1746533457823
+    },
+    {
+      "id": 1746545774452,
+      "nom": "goupe4",
+      "description": "Depense pour sortie en ville",
+      "membreId": [
+        1746533457823
+      ],
+      "chefDeGroupe": 1746533457823
     }
   ],
   "depenses": [],

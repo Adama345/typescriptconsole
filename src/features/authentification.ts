@@ -3,7 +3,7 @@ import { loadUser } from "../depenseManager";
 import inquirer from "inquirer";
 import { gestionCompte } from "./gererCompte";
 import { createGroupe } from "../features/createGroupe";
-import { afficherGroupes } from "../features/listergroupe";
+import { afficherGroupes } from "./listerGroupe";
 
 export async function seconnecter() {
     const loginInfo = await inquirer.prompt([

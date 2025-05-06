@@ -3,17 +3,8 @@ import { loadGroupe, savegroupe } from "../depenseManager";
 import inquirer from "inquirer";
 
 export async function deleteGroup(groupe: Groupe) {
-    const { groupes } = loadGroupe();
-    // let mygroup = groupe.filter((j) => j.chefDeGroupe === user.id);
-
-    // const { actionid } = await inquirer.prompt({
-    //     type: "list",
-    //     name: "actionid",
-    //     message: "Quel groupe souhaitez vous supprimer ?",
-    //     choices: mygroup.map((g) => ({ name: g.nom, value: g.id })),
-    // });
-
-    // mygroup = mygroup.filter((g)=>g.id !== actionid)
+    // const { groups }: { groups: Groupe[] } = loadGroupe();
+    const { groupes }: { groupes: Groupe[] } = loadGroupe();
 
     const { confirm } = await inquirer.prompt([
         {
