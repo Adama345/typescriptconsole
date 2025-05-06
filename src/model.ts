@@ -1,4 +1,4 @@
-type Role = "membre" | "Chef de group";
+// type Role = "membre" | "Chef de group";
 
 export interface Utilisateur {
     id: number;
@@ -6,7 +6,6 @@ export interface Utilisateur {
     prenom: string;
     telephone: string;
     password: string;
-    role: Role;
     email: string;
 }
 export interface Payer {

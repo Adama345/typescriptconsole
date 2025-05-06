@@ -3,7 +3,6 @@ import { loadGroupe, savegroupe } from "../depenseManager";
 import inquirer from "inquirer";
 
 export async function deleteGroup(groupe: Groupe) {
-    // const { groups }: { groups: Groupe[] } = loadGroupe();
     const { groupes }: { groupes: Groupe[] } = loadGroupe();
 
     const { confirm } = await inquirer.prompt([

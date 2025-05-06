@@ -1,4 +1,4 @@
-import { Groupe, Utilisateur } from "../model";
+import { Groupe} from "../model";
 import { loadGroupe, savegroupe, loadUser } from "../depenseManager";
 import inquirer from "inquirer";
 
@@ -6,7 +6,7 @@ export async function ajouterMembreAuGroupe(groupe: Groupe) {
     const { users } = loadUser();
 
     if (!users || users.length === 0) {
-        console.log("❌ Aucun utilisateur trouvé.");
+        console.log("Aucun utilisateur trouvé.");
         return;
     }
 
@@ -37,9 +37,9 @@ export async function ajouterMembreAuGroupe(groupe: Groupe) {
 
     if (!groupe.membreId.includes(utilisateurChoisi.id)) {
         groupe.membreId.push(utilisateurChoisi.id);
-        console.log(`✅ ${utilisateurChoisi.nom} ${utilisateurChoisi.prenom} a été ajouté au groupe "${groupe.nom}".`);
+        console.log(`${utilisateurChoisi.nom} ${utilisateurChoisi.prenom} a été ajouté au groupe "${groupe.nom}".`);
     } else {
-        console.log("ℹ️ L'utilisateur est déjà membre de ce groupe.");
+        console.log("L'utilisateur est déjà membre de ce groupe.");
     }
 
     // Mise à jour et sauvegarde du groupe

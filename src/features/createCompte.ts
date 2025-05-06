@@ -1,10 +1,9 @@
-import { Utilisateur } from "../model";
 import { loadUser, saveUser } from "../depenseManager";
 import inquirer from "inquirer";
 
 export async function createAcount() {
     let { users } = loadUser();
-    const { nom, prenom, telephone, password, role, email } =
+    const { nom, prenom, telephone, password, email } =
         await inquirer.prompt([
             {
                 type: "input",
@@ -27,12 +26,6 @@ export async function createAcount() {
                 message: "Quelle est votre mot de passe :",
             },
             {
-                type: "checkbox",
-                name: "role",
-                message: "Quel est votre role",
-                choices: ["Chef de group", "Membre"],
-            },
-            {
                 type: "input",
                 name: "email",
                 message: "Quelle est votre email :",
@@ -44,7 +37,6 @@ export async function createAcount() {
         prenom,
         telephone,
         password,
-        role,
         email,
     });
     saveUser(users);

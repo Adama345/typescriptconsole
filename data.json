@@ -3,7 +3,7 @@
     {
       "id": 1746533457823,
       "nom": "Samake",
-      "prenom": "Abdoul Ibrahima",
+      "prenom": "Abdoul",
       "telephone": "71267813",
       "password": "qwerty",
       "role": [
@@ -46,9 +46,10 @@
     {
       "id": 1746545774452,
       "nom": "goupe4",
-      "description": "Depense pour sortie en ville",
+      "description": "Cotisation pour visiter les villes de la chine",
       "membreId": [
-        1746533457823
+        1746533457823,
+        1746533526172
       ],
       "chefDeGroupe": 1746533457823
     }

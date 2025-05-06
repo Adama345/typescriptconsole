@@ -1,6 +1,6 @@
-import { Groupe, Utilisateur } from "../model";
-import { loadGroupe, savegroupe, loadUser } from "../depenseManager";
-import inquirer from "inquirer";
+import { Groupe} from "../model";
+import { loadUser } from "../depenseManager";
+
 
 export async function afficherMembresDuGroupe(groupe: Groupe) {
     const { users } = loadUser();

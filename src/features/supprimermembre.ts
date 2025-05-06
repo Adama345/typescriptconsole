@@ -7,7 +7,7 @@ export async function supprimerMembreDuGroupe(groupe: Groupe) {
     const { users } = loadUser();
 
     if (!groupe.membreId || groupe.membreId.length === 0) {
-        console.log("❌ Aucun membre à supprimer.");
+        console.log("Aucun membre à supprimer.");
         return;
     }
 
@@ -27,7 +27,7 @@ export async function supprimerMembreDuGroupe(groupe: Groupe) {
 
     groupe.membreId = groupe.membreId.filter(id => id !== membreASupprimer);
 
-    console.log("🗑️ Membre supprimé du groupe.");
+    console.log("Membre supprimé du groupe.");
 
     const { groupes } = loadGroupe();
     const index = groupes.findIndex(g => g.id === groupe.id);
