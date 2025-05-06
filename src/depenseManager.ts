@@ -59,9 +59,9 @@ export function loadGroupe(): { groupes: Groupe[] } {
     return { groupes: data.groups }; // Retourne un objet avec une clé `groupes` contenant un tableau de groupes
 }
 
-export function savegroupe(groups: Groupe[]) {
+export function savegroupe(groupes: Groupe[]) {
     const data = loadData();
-    data.groups = groups;
+    data.groups = groupes;
     saveData(data);
 }
 

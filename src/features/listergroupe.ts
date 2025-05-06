@@ -1,17 +1,24 @@
 import { Groupe, Utilisateur } from "../model";
 import { loadGroupe } from "../depenseManager";
 import inquirer from "inquirer";
-import { deleteGroup } from "../features/supprimergroupe";
+import { deleteGroup } from "./supprimergroupe";
 
 export async function afficherGroupes(user: Utilisateur) {
     const { groupes } = loadGroupe();
 
     //cette variable stocke le groupe au quel l'utilisateur appartien
-    // const mesGroupes = groupes.filter((g) => g.membreId?.includes(user.id));
+    const joiGroupes = groupes.filter((g) => g.membreId?.includes(user.id));
     //cette variable stocke les groupe que j'ai creer
     const mesGroupes = groupes.filter((g) => g.chefDeGroupe === user.id);
 
-    if (mesGroupes.length === 0) {
+    // const lesGroupe = joiGroupes.concat(mesGroupes);
+    const groupeMap = new Map<number, Groupe>();
+    [...joiGroupes, ...mesGroupes].forEach((g) => {
+        groupeMap.set(g.id, g); // si un groupe a déjà cet id, il ne sera pas dupliqué
+    });
+    const lesGroupe = Array.from(groupeMap.values());
+
+    if (joiGroupes.length === 0 && mesGroupes.length === 0) {
         console.log("Vous n'êtes membre d'aucun groupe.");
         return null;
     }
@@ -21,7 +28,7 @@ export async function afficherGroupes(user: Utilisateur) {
             type: "list",
             name: "groupeChoisi",
             message: "Sélectionnez un groupe :",
-            choices: mesGroupes.map((groupe) => ({
+            choices: lesGroupe.map((groupe) => ({
                 name: `${groupe.nom} - ${groupe.description}`,
                 value: groupe.id,
             })),
