@@ -2,18 +2,19 @@ import { Groupe, Utilisateur } from "../model";
 import { loadGroupe } from "../depenseManager";
 import inquirer from "inquirer";
 import { deleteGroup } from "../features/supprimergroupe";
+import { ajouterMembreAuGroupe } from "./ajoutMembre";
+import { afficherMembresDuGroupe } from "./Affichermenbre";
+import { supprimerMembreDuGroupe } from "./supprimermembre";
 
 export async function afficherGroupes(user: Utilisateur) {
     const { groupes } = loadGroupe();
 
-    //cette variable stocke le groupe au quel l'utilisateur appartien
-    // const mesGroupes = groupes.filter((g) => g.membreId?.includes(user.id));
-    //cette variable stocke les groupe que j'ai creer
+    // Les groupes dont l'utilisateur est le chef
     const mesGroupes = groupes.filter((g) => g.chefDeGroupe === user.id);
 
     if (mesGroupes.length === 0) {
-        console.log("Vous n'êtes membre d'aucun groupe.");
-        return null;
+        console.log("❌ Vous n'avez créé aucun groupe.");
+        return;
     }
 
     const { groupeChoisi } = await inquirer.prompt([
@@ -28,46 +29,51 @@ export async function afficherGroupes(user: Utilisateur) {
         },
     ]);
 
-    if (groupeChoisi) {
-        const { action } = await inquirer.prompt([
-            {
-                type: "list",
-                name: "action",
-                message: "Que voulez-vous faire dans ce groupe",
-                choices: [
-                    "Ajouter une depense",
-                    "Voir les membres",
-                    "Ajouter des membres",
-                    "Supprimer um membre",
-                    "Supprimer le groupe",
-                    "Retour",
-                ],
-            },
-        ]);
-        switch (action) {
-            case "Ajouter une depense":
-                console.log("ajouter une depense");
-                break;
-            case "Voir les membres":
-                console.log("voir les depenses");
-                break;
-            case "Ajouter des membres":
-                console.log("Ajouter des membres");
-                break;
-            case "Supprimer um membre":
-                console.log("Supprimer um membre");
+    const groupe = groupes.find(g => g.id === groupeChoisi);
 
-                break;
-            case "Supprimer le groupe":
-                const groupeASupprimer = mesGroupes.find(
-                    (g) => g.id === groupeChoisi
-                );
-                if (groupeASupprimer) {
-                    await deleteGroup(groupeASupprimer);
-                }
-                break;
-            case "Retour":
-                return;
-        }
+    if (!groupe) {
+        console.log("❌ Groupe introuvable.");
+        return;
+    }
+
+    const { action } = await inquirer.prompt([
+        {
+            type: "list",
+            name: "action",
+            message: "Que voulez-vous faire dans ce groupe ?",
+            choices: [
+                "Ajouter une dépense",
+                "Voir les membres",
+                "Ajouter des membres",
+                "Supprimer un membre",
+                "Supprimer le groupe",
+                "Retour",
+            ],
+        },
+    ]);
+
+    switch (action) {
+        case "Ajouter une dépense":
+            console.log("📝 Ajouter une dépense - Fonctionnalité à implémenter.");
+            break;
+
+        case "Voir les membres":
+            await afficherMembresDuGroupe(groupe);
+            break;
+
+        case "Ajouter des membres":
+            await ajouterMembreAuGroupe(groupe);
+            break;
+
+        case "Supprimer un membre":
+            await supprimerMembreDuGroupe(groupe);
+            break;
+
+        case "Supprimer le groupe":
+            await deleteGroup(groupe);
+            break;
+
+        case "Retour":
+            return;
     }
 }
