@@ -18,7 +18,7 @@ export async function seconnecter() {
             message: "Votre mot de passe :",
         },
     ]);
-    const users = loadUser();
+    const { users } = loadUser();
     const user = users.find(
         (u) =>
             u.telephone === loginInfo.telephone &&

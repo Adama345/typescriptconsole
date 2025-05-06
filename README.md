@@ -29,12 +29,10 @@ Elle permet de **suivre, gérer et organiser les dépenses** au sein d’un grou
 
 ```bash
     npm install
-
-    npx tsc
 ```
 
 3. **Excecuter le code**
 
 ```bash
-    node dist/app.js
+    npm run dev
 ```

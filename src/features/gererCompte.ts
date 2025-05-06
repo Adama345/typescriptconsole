@@ -63,13 +63,13 @@ export async function gestionCompte(user: Utilisateur): Promise<boolean> {
             }
 
             // Met à jour la liste complète des utilisateurs
-            const User = loadUser();
-            const index = User.findIndex((u) => u.id === user.id);
+            const { users } = loadUser();
+            const index = users.findIndex((u) => u.id === user.id);
             if (index !== -1) {
                 // User[index] = user;
                 // saveUser(User);
-                User[index] = { ...user };
-                saveUser(User);
+                users[index] = { ...user };
+                saveUser(users);
                 console.log(" Information mise à jour !");
             }
             const { encore } = await inquirer.prompt([
@@ -93,8 +93,8 @@ export async function gestionCompte(user: Utilisateur): Promise<boolean> {
             },
         ]);
         if (confirmation) {
-            const User = loadUser();
-            const newUser = User.filter((u) => u.id !== user.id);
+            const { users } = loadUser();
+            const newUser = users.filter((u) => u.id !== user.id);
             saveUser(newUser);
             console.log("🗑️ Compte supprimé !");
             return true;

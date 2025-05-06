@@ -1,51 +1,49 @@
-[
-  {
-    "id": 1746317895597,
-    "nom": "Samake",
-    "prenom": "Abdoul Ibrahima",
-    "telephone": "71267813",
-    "password": "Abdoul03",
-    "role": [
-      "Chef de group"
-    ],
-    "email": "samabdoul03@gmail.com"
-  },
-  {
-    "id": 1746447405476,
-    "nom": "Nantenin",
-    "prenom": "Keita",
-    "telephone": "70181600",
-    "password": "Nene100",
-    "role": [],
-    "email": "knanete@gmail.com"
-  },
-  {
-    "id": 1746387554089,
-    "nom": "Madyeh Sylla",
-    "prenom": "Tenen",
-    "telephone": "74323874",
-    "password": "123",
-    "role": [],
-    "email": "madyehsylla427@gmail.com"
-  },
-  {
-    "id": 1746469158911,
-    "nom": "GLO",
-    "description": "AU",
-    "membreId": [
-      1746387554089
-    ],
-    "chefDeGroupe": 1746387554089
-  },
-  {
-    "id": 1746469670202,
-    "nom": "Seydou",
-    "prenom": "Dembele",
-    "telephone": "82232685",
-    "password": "qwerty",
-    "role": [
-      "Chef de group"
-    ],
-    "email": "dem@gmail.com"
-  }
-]
+{
+  "users": [
+    {
+      "id": 1746533457823,
+      "nom": "Samake",
+      "prenom": "Abdoul Ibrahima",
+      "telephone": "71267813",
+      "password": "qwerty",
+      "role": [
+        "Chef de group"
+      ],
+      "email": "email"
+    },
+    {
+      "id": 1746533526172,
+      "nom": "Dembele",
+      "prenom": "Adama",
+      "telephone": "71467372",
+      "password": "azerty",
+      "role": [
+        "Membre"
+      ],
+      "email": "demassim3@gmail.com"
+    }
+  ],
+  "groups": [
+    {
+      "id": 1746533625548,
+      "nom": "coldepennce",
+      "description": "cotissation pour acheter des ordi",
+      "membreId": [
+        1746533457823
+      ],
+      "chefDeGroupe": 1746533457823
+    },
+    {
+      "id": 1746533723803,
+      "nom": "Groupe1",
+      "description": "creation d'une application de depense collaboratif",
+      "membreId": [
+        1746533526172
+      ],
+      "chefDeGroupe": 1746533526172
+    }
+  ],
+  "depenses": [],
+  "Rapport": [],
+  "Payer": []
+}

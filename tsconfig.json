@@ -5,9 +5,14 @@
         "module": "CommonJS",
         "noEmitOnError": true,
         "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
     },
-    "files": [
-        "src/app.ts"
-        // "src/depenseManager.ts"
-    ]
+    // "files": [
+    //     "src/app.ts"
+    //     // "src/depenseManager.ts"
+    // ],
+    "include":["src/**/*.ts"],
+    "exclude":["node_modules"]
 }

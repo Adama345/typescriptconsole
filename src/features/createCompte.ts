@@ -3,7 +3,7 @@ import { loadUser, saveUser } from "../depenseManager";
 import inquirer from "inquirer";
 
 export async function createAcount() {
-    let User: Utilisateur[] = loadUser();
+    let { users } = loadUser();
     const { nom, prenom, telephone, password, role, email } =
         await inquirer.prompt([
             {
@@ -38,7 +38,7 @@ export async function createAcount() {
                 message: "Quelle est votre email :",
             },
         ]);
-    User.push({
+    users.push({
         id: Date.now(),
         nom,
         prenom,
@@ -47,6 +47,6 @@ export async function createAcount() {
         role,
         email,
     });
-    saveUser(User);
+    saveUser(users);
     console.log("Utilisateur creer avec succes");
 }
