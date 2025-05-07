@@ -21,6 +21,24 @@
         "Membre"
       ],
       "email": "demassim3@gmail.com"
+    },
+    {
+      "id": 1746541968937,
+      "nom": "TOURE",
+      "prenom": "Boubou",
+      "telephone": "93462075",
+      "password": "20207040",
+      "role": [],
+      "email": "93462075"
+    },
+    {
+      "id": 1746545647703,
+      "nom": "TOURE",
+      "prenom": "Baba",
+      "telephone": "71866203",
+      "password": "12345678",
+      "role": [],
+      "email": "BABA93@gmail.com"
     }
   ],
   "groups": [
@@ -51,6 +69,55 @@
         1746533457823,
         1746533526172
       ],
+
+      "chefDeGroupe": 1746533526172
+    },
+    {
+      "id": 1746542277670,
+      "nom": "SAANI",
+      "description": "Pour les achats",
+      "membreId": [
+        1746541968937
+      ],
+      "chefDeGroupe": 1746541968937
+    },
+    {
+      "id": 1746612928062,
+      "nom": "SUGU",
+      "description": "Pour tout vos besoin",
+      "membreId": [
+        1746541968937
+      ],
+      "chefDeGroupe": 1746541968937
+    }
+  ],
+  "depenses": [
+    {
+      "id": 1746617207230,
+      "nom": "VOYAGE3",
+      "montant": 150000,
+      "date": "2025-05-07T11:26:47.230Z",
+      "chefDeGroupe": 1746541968937,
+      "groupeId": 1746542277670,
+      "membreId": [
+        1746541968937
+      ]
+    },
+    {
+      "id": 1746630402772,
+      "nom": "FETE",
+      "montant": 100000,
+      "date": "2025-05-07T15:06:42.772Z",
+      "chefDeGroupe": 1746541968937,
+      "groupeId": 1746612928062,
+      "membreId": [
+        1746541968937
+      ]
+    }
+  ],
+  "Rapport": [],
+  "Payer": []
+=======
       "chefDeGroupe": 1746533457823
     }
   ],
@@ -138,4 +205,5 @@
       "methode": "carte_bancaire"
     }
   ]
+
 }

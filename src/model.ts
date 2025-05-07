@@ -22,6 +22,7 @@ export interface Depense {
     date: Date;
     membreId: number[];
     chefDeGroupe: number;
+    groupeId: number;
 }
 export interface Groupe {
     id: number;
