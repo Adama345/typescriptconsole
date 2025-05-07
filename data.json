@@ -54,7 +54,88 @@
       "chefDeGroupe": 1746533457823
     }
   ],
-  "depenses": [],
-  "Rapport": [],
-  "Payer": []
+  "depenses": [
+    {
+      "id": 1746533457863,
+      "nom": "bugatti veyron",
+      "montant": 2000000,
+      "date": 1746533457823,
+      "membreId": [
+        1746533457823,
+        1746533526172
+      ],
+      "chefDeGroupe": 1746533457823
+    }
+  ],
+  "Rapport": [
+    {
+      "id": 1746617015187,
+      "periode": "2025-05-07T11:23:35.187Z",
+      "description": "Rapport hebdomadaire du 30/04/2025 au 07/05/2025",
+      "membreId": [
+        1746533457823,
+        1746533526172
+      ],
+      "chefDeGroupe": 1746533457823
+    },
+    {
+      "id": 1746617167045,
+      "periode": "2025-05-07T11:26:07.045Z",
+      "description": "Rapport hebdomadaire du 30/04/2025 au 07/05/2025",
+      "membreId": [
+        1746533457823,
+        1746533526172
+      ],
+      "chefDeGroupe": 1746533457823
+    },
+    {
+      "id": 1746617379705,
+      "periode": "2025-05-07T11:29:39.705Z",
+      "description": "Rapport hebdomadaire du 30/04/2025 au 07/05/2025",
+      "membreId": [
+        1746533457823,
+        1746533526172
+      ],
+      "chefDeGroupe": 1746533457823
+    },
+    {
+      "id": 1746617431496,
+      "periode": "2025-05-07T11:30:31.496Z",
+      "description": "Rapport hebdomadaire du 30/04/2025 au 07/05/2025",
+      "membreId": [
+        1746533457823,
+        1746533526172
+      ],
+      "chefDeGroupe": 1746533457823
+    }
+  ],
+  "Payer": [
+    {
+      "id": 1746616984904,
+      "date": "2025-05-07T11:23:04.904Z",
+      "sold": 1000000,
+      "membreId": 1746533457823,
+      "depenseId": 1746533457863,
+      "statut": "validé",
+      "methode": "espèces"
+    },
+    {
+      "id": 1746617370974,
+      "date": "2025-05-07T11:29:30.974Z",
+      "sold": 500000,
+      "membreId": 1746533526172,
+      "depenseId": 1746533457863,
+      "statut": "validé",
+      "methode": "mobile_money"
+    },
+    {
+      "id": 1746617423193,
+      "date": "2025-05-07T11:30:23.193Z",
+      "sold": 500000,
+      "membreId": 1746533526172,
+      "depenseId": 1746533457863,
+      "statut": "validé",
+      "methode": "carte_bancaire"
+    }
+  ]
 }

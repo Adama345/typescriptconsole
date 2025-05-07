@@ -7,7 +7,11 @@ import { ajouterMembreAuGroupe } from "./ajoutMembre";
 import { afficherMembresDuGroupe } from "./Affichermenbre";
 import { supprimerMembreDuGroupe } from "./supprimermembre";
 import { modifierGroupe } from "./modifierGroupes";
-
+import { menuPaiements } from "./paiementManager";
+import {
+    afficherRapportHebdomadaire,
+    genererRapportHebdomadaire,
+} from "./rapport";
 
 export async function afficherGroupes(user: Utilisateur) {
     const { groupes } = loadGroupe();
@@ -52,6 +56,8 @@ export async function afficherGroupes(user: Utilisateur) {
                     "Voir les membres",
                     "Ajouter des membres",
                     "Modifier Groupe",
+                    "Effectuer un paiement",
+                    "Afficher le rapport",
                     "Supprimer um membre",
                     "Supprimer le groupe",
                     "Retour",
@@ -63,42 +69,71 @@ export async function afficherGroupes(user: Utilisateur) {
                 console.log("ajouter une depense");
                 break;
             case "Voir les membres":
-                const groupeSelectionne = groupes.find(g => g.id === groupeChoisi);
+                const groupeSelectionne = groupes.find(
+                    (g) => g.id === groupeChoisi
+                );
                 if (groupeSelectionne) {
                     await afficherMembresDuGroupe(groupeSelectionne);
                 }
                 break;
-             
             case "Ajouter des membres":
-                const ajoutMembre = mesGroupes.find((g) => g.id === groupeChoisi);
+                const ajoutMembre = mesGroupes.find(
+                    (g) => g.id === groupeChoisi
+                );
                 if (ajoutMembre) {
                     await ajouterMembreAuGroupe(ajoutMembre);
-                }else{
-                    console.log("Seule l'admin du groupe a le droit d'ajouter des membres");  
+                } else {
+                    console.log(
+                        "Seule l'admin du groupe a le droit d'ajouter des membres"
+                    );
                 }
                 break;
             case "Modifier Groupe":
-                const modifierGroup = mesGroupes.find((g) => g.id === groupeChoisi);
+                const modifierGroup = mesGroupes.find(
+                    (g) => g.id === groupeChoisi
+                );
                 if (modifierGroup) {
                     await modifierGroupe(modifierGroup);
-                }else{
-                    console.log("Seule l'admin du groupe a le droit de le modifier");  
+                } else {
+                    console.log(
+                        "Seule l'admin du groupe a le droit de le modifier"
+                    );
+                }
+                break;
+            case "Effectuer un paiement":
+                await menuPaiements(user);
+                break;
+            case "Afficher le rapport":
+                const rapportGroup = groupes.find((g) => g.id === groupeChoisi);
+                if (rapportGroup) {
+                    const rapport = genererRapportHebdomadaire(rapportGroup.id);
+                    if (rapport) {
+                        await afficherRapportHebdomadaire(rapport);
+                    }
                 }
                 break;
             case "Supprimer um membre":
-                const supprimerMembre = mesGroupes.find((g) => g.id === groupeChoisi);
+                const supprimerMembre = mesGroupes.find(
+                    (g) => g.id === groupeChoisi
+                );
                 if (supprimerMembre) {
                     await supprimerMembreDuGroupe(supprimerMembre);
-                }else{
-                    console.log("Seule l'admin du groupe a le droit de supprimer des membres");  
+                } else {
+                    console.log(
+                        "Seule l'admin du groupe a le droit de supprimer des membres"
+                    );
                 }
                 break;
             case "Supprimer le groupe":
-                const groupeASupprimer = mesGroupes.find((g) => g.id === groupeChoisi);
+                const groupeASupprimer = mesGroupes.find(
+                    (g) => g.id === groupeChoisi
+                );
                 if (groupeASupprimer) {
                     await deleteGroup(groupeASupprimer);
-                }else{
-                    console.log("Seule l'admin du groupe a le droit de le supprimer");  
+                } else {
+                    console.log(
+                        "Seule l'admin du groupe a le droit de le supprimer"
+                    );
                 }
                 break;
             case "Retour":

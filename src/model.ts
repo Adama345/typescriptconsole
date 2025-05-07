@@ -1,5 +1,3 @@
-// type Role = "membre" | "Chef de group";
-
 export interface Utilisateur {
     id: number;
     nom: string;
@@ -14,13 +12,15 @@ export interface Payer {
     sold: number;
     membreId: number;
     depenseId: number;
+    statut?: "validé" | "en_attente" | "refusé";
+    methode?: "espèces" | "mobile_money" | "carte_bancaire";
 }
 export interface Depense {
     id: number;
     nom: string;
     montant: number;
     date: Date;
-    membreId?: number[];
+    membreId: number[];
     chefDeGroupe: number;
 }
 export interface Groupe {
@@ -29,6 +29,17 @@ export interface Groupe {
     description: string;
     membreId?: number[];
     chefDeGroupe: number;
+}
+export interface RapportHebdomadaire {
+    id: number;
+    dateDebut: Date;
+    dateFin: Date;
+    depensesTotal: number;
+    paiementsTotal: number;
+    solde: number;
+    depensesParMembre: { membreId: number; montant: number }[];
+    paiementsParMembre: { membreId: number; montant: number }[];
+    groupeId: number;
 }
 export interface Rapport {
     id: number;

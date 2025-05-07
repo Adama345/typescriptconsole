@@ -11,7 +11,7 @@ interface DataFile {
     Payer: Payer[];
 }
 
-function loadData(): DataFile {
+export function loadData(): DataFile {
     if (!fs.existsSync(File_path)) {
         return { users: [], groups: [], depenses: [], Rapport: [], Payer: [] };
     }
@@ -37,7 +37,7 @@ function loadData(): DataFile {
     }
 }
 
-function saveData(data: DataFile) {
+export function saveData(data: DataFile) {
     const json = JSON.stringify(data, null, 2);
     fs.writeFileSync(File_path, json, "utf-8");
 }

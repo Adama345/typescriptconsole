@@ -1,4 +1,0 @@
-# .gitattributes
-* text=auto
-*.ts text eol=lf
-*.json text eol=lf
