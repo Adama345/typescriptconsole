@@ -21,8 +21,9 @@ export interface Depense {
     nom: string;
     montant: number;
     date: Date;
-    membreId?: number[];
+    membreId: number[];
     chefDeGroupe: number;
+    groupeId: number;
 }
 export interface Groupe {
     id: number;

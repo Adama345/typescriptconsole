@@ -4,6 +4,9 @@ import inquirer from "inquirer";
 import { gestionCompte } from "./gererCompte";
 import { createGroupe } from "../features/createGroupe";
 import { afficherGroupes } from "../features/listergroupe";
+import { modifierDepense } from "./modifierDepense";
+import { supprimerDepense } from "./supprimerDepense";
+
 
 export async function seconnecter() {
     const loginInfo = await inquirer.prompt([
@@ -44,6 +47,10 @@ async function menuUtilisateur(user: Utilisateur) {
                 "Voir mes goupes",
                 "Gerer Mon Compte",
                 "Me deconnecter",
+                "Lister mes dépenses",
+                "Modifier une dépense",
+                "Supprimer une dépense",
+
             ],
         },
     ]);
@@ -54,6 +61,13 @@ async function menuUtilisateur(user: Utilisateur) {
         case "Voir mes goupes":
             await afficherGroupes(user);
             break;
+case "Modifier une dépense":
+    await modifierDepense(user);
+    break;
+case "Supprimer une dépense":
+    await supprimerDepense(user);
+    break;
+
         case "Gerer Mon Compte":
             // await gestionCompte(user);
             const shouldLogout = await gestionCompte(user);
