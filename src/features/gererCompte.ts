@@ -66,8 +66,6 @@ export async function gestionCompte(user: Utilisateur): Promise<boolean> {
             const { users } = loadUser();
             const index = users.findIndex((u) => u.id === user.id);
             if (index !== -1) {
-                // User[index] = user;
-                // saveUser(User);
                 users[index] = { ...user };
                 saveUser(users);
                 console.log(" Information mise à jour !");

@@ -1,9 +1,18 @@
+
 import { Utilisateur } from "../model"; // Importe le type Utilisateur
 import { loadUser } from "../depenseManager"; // Importe la fonction pour charger les utilisateurs
 import inquirer from "inquirer"; // Importe la bibliothèque Inquirer pour les questions interactives
 import { gestionCompte } from "./gererCompte"; // Importe la gestion du compte utilisateur
 import { createGroupe } from "../features/createGroupe"; // Importe la fonction de création de groupe
 import { afficherGroupes } from "../features/listergroupe"; // Importe la fonction d'affichage des groupes de l'utilisateur
+
+import { Utilisateur } from "../model";
+import { loadUser } from "../depenseManager";
+import inquirer from "inquirer";
+import { gestionCompte } from "./gererCompte";
+import { createGroupe } from "../features/createGroupe";
+import { afficherGroupes } from "./listergroupe";
+
 
 export async function seconnecter() {
     const loginInfo = await inquirer.prompt([

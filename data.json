@@ -3,7 +3,7 @@
     {
       "id": 1746533457823,
       "nom": "Samake",
-      "prenom": "Abdoul Ibrahima",
+      "prenom": "Abdoul",
       "telephone": "71267813",
       "password": "qwerty",
       "role": [
@@ -43,21 +43,33 @@
   ],
   "groups": [
     {
-      "id": 1746533625548,
-      "nom": "coldepennce",
-      "description": "cotissation pour acheter des ordi",
+      "id": 1746533723803,
+      "nom": "Groupe1",
+      "description": "creation d'une application de depense collaboratif",
+      "membreId": [
+        1746533526172,
+        1746533457823
+      ],
+      "chefDeGroupe": 1746533526172
+    },
+    {
+      "id": 1746545690797,
+      "nom": "groupe3",
+      "description": "Depense pour voyager en chine",
       "membreId": [
         1746533457823
       ],
       "chefDeGroupe": 1746533457823
     },
     {
-      "id": 1746533723803,
-      "nom": "Groupe1",
-      "description": "creation d'une application de depense collaboratif",
+      "id": 1746545774452,
+      "nom": "goupe4",
+      "description": "Cotisation pour visiter les villes de la chine",
       "membreId": [
+        1746533457823,
         1746533526172
       ],
+
       "chefDeGroupe": 1746533526172
     },
     {
@@ -105,4 +117,93 @@
   ],
   "Rapport": [],
   "Payer": []
+=======
+      "chefDeGroupe": 1746533457823
+    }
+  ],
+  "depenses": [
+    {
+      "id": 1746533457863,
+      "nom": "bugatti veyron",
+      "montant": 2000000,
+      "date": 1746533457823,
+      "membreId": [
+        1746533457823,
+        1746533526172
+      ],
+      "chefDeGroupe": 1746533457823
+    }
+  ],
+  "Rapport": [
+    {
+      "id": 1746617015187,
+      "periode": "2025-05-07T11:23:35.187Z",
+      "description": "Rapport hebdomadaire du 30/04/2025 au 07/05/2025",
+      "membreId": [
+        1746533457823,
+        1746533526172
+      ],
+      "chefDeGroupe": 1746533457823
+    },
+    {
+      "id": 1746617167045,
+      "periode": "2025-05-07T11:26:07.045Z",
+      "description": "Rapport hebdomadaire du 30/04/2025 au 07/05/2025",
+      "membreId": [
+        1746533457823,
+        1746533526172
+      ],
+      "chefDeGroupe": 1746533457823
+    },
+    {
+      "id": 1746617379705,
+      "periode": "2025-05-07T11:29:39.705Z",
+      "description": "Rapport hebdomadaire du 30/04/2025 au 07/05/2025",
+      "membreId": [
+        1746533457823,
+        1746533526172
+      ],
+      "chefDeGroupe": 1746533457823
+    },
+    {
+      "id": 1746617431496,
+      "periode": "2025-05-07T11:30:31.496Z",
+      "description": "Rapport hebdomadaire du 30/04/2025 au 07/05/2025",
+      "membreId": [
+        1746533457823,
+        1746533526172
+      ],
+      "chefDeGroupe": 1746533457823
+    }
+  ],
+  "Payer": [
+    {
+      "id": 1746616984904,
+      "date": "2025-05-07T11:23:04.904Z",
+      "sold": 1000000,
+      "membreId": 1746533457823,
+      "depenseId": 1746533457863,
+      "statut": "validé",
+      "methode": "espèces"
+    },
+    {
+      "id": 1746617370974,
+      "date": "2025-05-07T11:29:30.974Z",
+      "sold": 500000,
+      "membreId": 1746533526172,
+      "depenseId": 1746533457863,
+      "statut": "validé",
+      "methode": "mobile_money"
+    },
+    {
+      "id": 1746617423193,
+      "date": "2025-05-07T11:30:23.193Z",
+      "sold": 500000,
+      "membreId": 1746533526172,
+      "depenseId": 1746533457863,
+      "statut": "validé",
+      "methode": "carte_bancaire"
+    }
+  ]
+
 }

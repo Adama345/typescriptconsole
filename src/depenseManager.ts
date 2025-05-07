@@ -11,7 +11,7 @@ interface DataFile {
     Payer: Payer[];
 }
 
-function loadData(): DataFile {
+export function loadData(): DataFile {
     if (!fs.existsSync(File_path)) {
         return { users: [], groups: [], depenses: [], Rapport: [], Payer: [] };
     }
@@ -37,7 +37,7 @@ function loadData(): DataFile {
     }
 }
 
-function saveData(data: DataFile) {
+export function saveData(data: DataFile) {
     const json = JSON.stringify(data, null, 2);
     fs.writeFileSync(File_path, json, "utf-8");
 }
@@ -59,9 +59,9 @@ export function loadGroupe(): { groupes: Groupe[] } {
     return { groupes: data.groups }; // Retourne un objet avec une clé `groupes` contenant un tableau de groupes
 }
 
-export function savegroupe(groups: Groupe[]) {
+export function savegroupe(groupes: Groupe[]) {
     const data = loadData();
-    data.groups = groups;
+    data.groups = groupes;
     saveData(data);
 }
 

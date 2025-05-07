@@ -1,4 +1,5 @@
 import inquirer from "inquirer";
+
 import { Groupe, Utilisateur } from "../model";
 import { loadGroupe, loadUser, loadDepense, savedepense } from "../depenseManager";
 import { deleteGroup } from "../features/supprimergroupe";
@@ -6,9 +7,21 @@ import { ajouterDepense } from "./ajouterDepense";
 import { supprimerDepense } from "./supprimerDepense";
 import { modifierDepense } from "./modifierDepense";
 
+import { deleteGroup } from "./supprimergroupe";
+import { ajouterMembreAuGroupe } from "./ajoutMembre";
+import { afficherMembresDuGroupe } from "./Affichermenbre";
+import { supprimerMembreDuGroupe } from "./supprimermembre";
+import { modifierGroupe } from "./modifierGroupes";
+import { menuPaiements } from "./paiementManager";
+import {
+    afficherRapportHebdomadaire,
+    genererRapportHebdomadaire,
+} from "./rapport";
+
 export async function afficherGroupes(user: Utilisateur) {
     const { groupes } = loadGroupe();
     const users: Utilisateur[] = loadUser().users;
+
 
     // Groupes dont l'utilisateur est chef
     const mesGroupes = groupes.filter((g) => g.chefDeGroupe === user.id);
@@ -20,10 +33,41 @@ export async function afficherGroupes(user: Utilisateur) {
 
     let continuerPrincipal = true;
 
+    //cette variable stocke le groupe au quel l'utilisateur appartien
+    const joiGroupes = groupes.filter((g) => g.membreId?.includes(user.id));
+    //cette variable stocke les groupe que j'ai creer
+    const mesGroupes = groupes.filter((g) => g.chefDeGroupe === user.id);
+
+    // const lesGroupe = joiGroupes.concat(mesGroupes);
+    const groupeMap = new Map<number, Groupe>();
+    [...joiGroupes, ...mesGroupes].forEach((g) => {
+        groupeMap.set(g.id, g); // si un groupe a déjà cet id, il ne sera pas dupliqué
+    });
+    const lesGroupe = Array.from(groupeMap.values());
+
+    if (joiGroupes.length === 0 && mesGroupes.length === 0) {
+        console.log("Vous n'êtes membre d'aucun groupe.");
+        return null;
+    }
+
+    const { groupeChoisi } = await inquirer.prompt([
+        {
+            type: "list",
+            name: "groupeChoisi",
+            message: "Sélectionnez un groupe :",
+            choices: lesGroupe.map((groupe) => ({
+                name: `${groupe.nom} - ${groupe.description}`,
+                value: groupe.id,
+            })),
+        },
+    ]);
+
+
     while (continuerPrincipal) {
         const { groupeChoisi } = await inquirer.prompt([
             {
                 type: "list",
+
                 name: "groupeChoisi",
                 message: "Sélectionnez un groupe :",
                 choices: mesGroupes.map((g) => ({
@@ -132,6 +176,97 @@ export async function afficherGroupes(user: Utilisateur) {
 
         if (!continuer) {
             continuerPrincipal = false;
+
+                name: "action",
+                message: "Que voulez-vous faire dans ce groupe",
+                choices: [
+                    "Ajouter une depense",
+                    "Voir les membres",
+                    "Ajouter des membres",
+                    "Modifier Groupe",
+                    "Effectuer un paiement",
+                    "Afficher le rapport",
+                    "Supprimer um membre",
+                    "Supprimer le groupe",
+                    "Retour",
+                ],
+            },
+        ]);
+        switch (action) {
+            case "Ajouter une depense":
+                console.log("ajouter une depense");
+                break;
+            case "Voir les membres":
+                const groupeSelectionne = groupes.find(
+                    (g) => g.id === groupeChoisi
+                );
+                if (groupeSelectionne) {
+                    await afficherMembresDuGroupe(groupeSelectionne);
+                }
+                break;
+            case "Ajouter des membres":
+                const ajoutMembre = mesGroupes.find(
+                    (g) => g.id === groupeChoisi
+                );
+                if (ajoutMembre) {
+                    await ajouterMembreAuGroupe(ajoutMembre);
+                } else {
+                    console.log(
+                        "Seule l'admin du groupe a le droit d'ajouter des membres"
+                    );
+                }
+                break;
+            case "Modifier Groupe":
+                const modifierGroup = mesGroupes.find(
+                    (g) => g.id === groupeChoisi
+                );
+                if (modifierGroup) {
+                    await modifierGroupe(modifierGroup);
+                } else {
+                    console.log(
+                        "Seule l'admin du groupe a le droit de le modifier"
+                    );
+                }
+                break;
+            case "Effectuer un paiement":
+                await menuPaiements(user);
+                break;
+            case "Afficher le rapport":
+                const rapportGroup = groupes.find((g) => g.id === groupeChoisi);
+                if (rapportGroup) {
+                    const rapport = genererRapportHebdomadaire(rapportGroup.id);
+                    if (rapport) {
+                        await afficherRapportHebdomadaire(rapport);
+                    }
+                }
+                break;
+            case "Supprimer um membre":
+                const supprimerMembre = mesGroupes.find(
+                    (g) => g.id === groupeChoisi
+                );
+                if (supprimerMembre) {
+                    await supprimerMembreDuGroupe(supprimerMembre);
+                } else {
+                    console.log(
+                        "Seule l'admin du groupe a le droit de supprimer des membres"
+                    );
+                }
+                break;
+            case "Supprimer le groupe":
+                const groupeASupprimer = mesGroupes.find(
+                    (g) => g.id === groupeChoisi
+                );
+                if (groupeASupprimer) {
+                    await deleteGroup(groupeASupprimer);
+                } else {
+                    console.log(
+                        "Seule l'admin du groupe a le droit de le supprimer"
+                    );
+                }
+                break;
+            case "Retour":
+                return;
+
         }
     }
 }
