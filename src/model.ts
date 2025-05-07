@@ -15,6 +15,8 @@ export interface Payer {
     sold: number;
     membreId: number;
     depenseId: number;
+    statut?: "validé" | "en_attente" | "refusé";
+    methode?: "espèces" | "mobile_money" | "carte_bancaire";
 }
 export interface Depense {
     id: number;
@@ -31,6 +33,17 @@ export interface Groupe {
     membreId?: number[];
     chefDeGroupe: number;
 }
+export interface RapportHebdomadaire {
+    id: number;
+    dateDebut: Date;
+    dateFin: Date;
+    depensesTotal: number;
+    paiementsTotal: number;
+    solde: number;
+    depensesParMembre: { membreId: number; montant: number }[];
+    paiementsParMembre: { membreId: number; montant: number }[];
+    groupeId: number;
+} 
 export interface Rapport {
     id: number;
     periode: Date;
