@@ -3,6 +3,8 @@ import { Groupe, Utilisateur } from "../model";
 import { loadGroupe, loadUser, loadDepense, savedepense } from "../depenseManager";
 import { deleteGroup } from "../features/supprimergroupe";
 import { ajouterDepense } from "./ajouterDepense";
+import { supprimerDepense } from "./supprimerDepense";
+import { modifierDepense } from "./modifierDepense";
 
 export async function afficherGroupes(user: Utilisateur) {
     const { groupes } = loadGroupe();
@@ -47,6 +49,9 @@ export async function afficherGroupes(user: Utilisateur) {
                     message: "Que souhaitez-vous faire dans ce groupe ?",
                     choices: [
                         "Ajouter une dépense",
+                        "lister les dépenses",                      
+                        "Supprimer une dépense",
+                        "Modifier une dépense",
                         "Voir les membres",
                         "Ajouter des membres",
                         "Supprimer un membre",
@@ -60,6 +65,28 @@ export async function afficherGroupes(user: Utilisateur) {
                 case "Ajouter une dépense":
                     await ajouterDepense(user, groupe.id);
                     break;
+                    case "lister les dépenses":
+                        {
+                            // Récupérer toutes les dépenses du groupe
+                            const depenses = loadDepense().depenses.filter(d => d.groupeId === groupe.id);
+                            if (depenses.length === 0) {
+                                console.log("Aucune dépense dans ce groupe.");
+                            } else {
+                                console.log("Dépenses du groupe :");
+                                depenses.forEach((d) => {
+                                    console.log(`- ${d.nom} : ${d.montant} FCFA le ${new Date(d.date).toLocaleDateString()}`);
+                                });
+                            }
+                        }
+                        break;
+              
+                case "Supprimer une dépense": 
+                        await supprimerDepense(user, groupe.id);
+                        break;
+                        case "Modifier une dépense":
+                       await modifierDepense(user, groupe.id);
+                       break;
+
                 case "Voir les membres":
                     {
                         const membres = users.filter(u => groupe.membreId?.includes(u.id));

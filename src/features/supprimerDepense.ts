@@ -2,9 +2,9 @@ import inquirer from "inquirer";
 import { loadDepense, savedepense } from "../depenseManager";
 import { Utilisateur } from "../model";
 
-export async function supprimerDepense(user: Utilisateur) {
+export async function supprimerDepense(user: Utilisateur, groupeId: number) {
     const depenses = loadDepense().depenses;
-    const mesDepenses = depenses.filter(d => d.chefDeGroupe === user.id);
+    const mesDepenses = depenses.filter(d => d.groupeId === groupeId);
 
     if (mesDepenses.length === 0) {
         console.log("❌ Aucune dépense à supprimer.");
