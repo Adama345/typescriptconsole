@@ -6,7 +6,7 @@ export async function supprimerMembreDuGroupe(groupe: Groupe) {
     const { users } = loadUser();
 
     if (!groupe.membreId || groupe.membreId.length === 0) {
-        console.log("\n❌ Aucun membre à supprimer.\n");
+        console.log("\n Aucun membre à supprimer.\n");
         return;
     }
 
@@ -14,14 +14,14 @@ export async function supprimerMembreDuGroupe(groupe: Groupe) {
     const membres = users.filter(u => groupe.membreId?.includes(u.id));
 
     if (membres.length === 0) {
-        console.log("\n❌ Aucun membre trouvé dans ce groupe.\n");
+        console.log("\n Aucun membre trouvé dans ce groupe.\n");
         return;
     }
 
     // Affiche les membres du groupe dans une liste
-    console.log(`\n👥 **Membres du groupe "${groupe.nom}"** :\n`);
+    console.log(`\n **Membres du groupe "${groupe.nom}"** :\n`);
     membres.forEach((membre, index) => {
-        console.log(`🔹 ${index + 1}. **${membre.nom} ${membre.prenom}** | 📞 ${membre.telephone}`);
+        console.log(` ${index + 1}. **${membre.nom} ${membre.prenom}** | 📞 ${membre.telephone}`);
     });
 
     // Demande à l'utilisateur de sélectionner un membre à supprimer
@@ -48,7 +48,7 @@ export async function supprimerMembreDuGroupe(groupe: Groupe) {
     });
 
     // Confirmation de la suppression
-    console.log(`\n✅ **${membres.find(m => m.id === membreASupprimer)?.nom}** a été supprimé du groupe "${groupe.nom}".`);
+    console.log(`\n **${membres.find(m => m.id === membreASupprimer)?.nom}** a été supprimé du groupe "${groupe.nom}".`);
 
     // Sauvegarde les modifications dans le groupe
     const { groupes } = loadGroupe();

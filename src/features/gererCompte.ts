@@ -13,7 +13,7 @@ import boxen from "boxen"; // Boîtes stylisées pour mieux structurer l'afficha
 export async function gestionCompte(user: Utilisateur): Promise<boolean> {  
     // Affiche un titre dans une boîte stylisée en bleu avec une bordure ronde  
     console.log(  
-        boxen(chalk.bold.blueBright("👤 Gestion de votre Compte"), {  
+        boxen(chalk.bold.blueBright(" Gestion de votre Compte"), {  
             padding: 1,  
             margin: 1,  
             borderColor: "cyan",  
@@ -28,16 +28,16 @@ export async function gestionCompte(user: Utilisateur): Promise<boolean> {
             name: "action",  
             message: chalk.yellow("Que voulez-vous faire sur votre compte ?"),  
             choices: [  
-                { name: chalk.green("✏️ Modifier mes informations"), value: "modifier" },  
-                { name: chalk.red("🗑️ Supprimer mon compte"), value: "supprimer" },  
-                { name: chalk.blue("🔙 Retour"), value: "retour" },  
+                { name: chalk.green(" Modifier mes informations"), value: "modifier" },  
+                { name: chalk.red(" Supprimer mon compte"), value: "supprimer" },  
+                { name: chalk.blue(" Retour"), value: "retour" },  
             ],  
         },  
     ]);  
 
     // Si l'utilisateur choisit "retour", affiche un message et retourne false (aucune suppression)  
     if (action === "retour") {  
-        console.log(chalk.yellow("🔙 Retour au menu précédent..."));  
+        console.log(chalk.yellow(" Retour au menu précédent..."));  
         return false;  
     }  
 
@@ -48,7 +48,7 @@ export async function gestionCompte(user: Utilisateur): Promise<boolean> {
         while (continuer) {  
             // Affiche un titre stylisé pour la section modification  
             console.log(  
-                boxen(chalk.magentaBright("✨ Modification des informations ✨"), {  
+                boxen(chalk.magentaBright(" Modification des informations "), {  
                     padding: 1,  
                     margin: 1,  
                     borderColor: "magenta",  
@@ -122,7 +122,7 @@ export async function gestionCompte(user: Utilisateur): Promise<boolean> {
 
                                // Affiche une boîte stylisée pour confirmer que la mise à jour a été effectuée avec succès
                 console.log(
-                    boxen(chalk.bold.green("✅ Information mise à jour avec succès !"), {
+                    boxen(chalk.bold.green(" Information mise à jour avec succès !"), {
                         padding: 1,
                         margin: 1,
                         borderColor: "green",
@@ -152,7 +152,7 @@ export async function gestionCompte(user: Utilisateur): Promise<boolean> {
                 type: "confirm",
                 name: "confirmation",
                 message: chalk.red.bold(
-                    "⚠️ Voulez-vous vraiment supprimer votre compte ? Cette action est irréversible !"
+                    " Voulez-vous vraiment supprimer votre compte ? Cette action est irréversible !"
                 ),
             },
         ]);
@@ -167,7 +167,7 @@ export async function gestionCompte(user: Utilisateur): Promise<boolean> {
 
             // Affiche une boîte indiquant la suppression
             console.log(
-                boxen(chalk.red.bold("🗑️ Compte supprimé avec succès !"), {
+                boxen(chalk.red.bold(" Compte supprimé avec succès !"), {
                     padding: 1,
                     margin: 1,
                     borderColor: "red",
@@ -178,7 +178,7 @@ export async function gestionCompte(user: Utilisateur): Promise<boolean> {
             return true;
         } else {
             // Annulation de la suppression
-            console.log(chalk.green("✅ Suppression annulée !"));
+            console.log(chalk.green(" Suppression annulée !"));
         }
     }
 

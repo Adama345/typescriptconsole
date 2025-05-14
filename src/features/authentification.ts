@@ -27,14 +27,14 @@ export async function seconnecter() {
         {
             type: "input", // Entrée clavier
             name: "telephone", // nom de la réponse
-            message: chalk.green("📱 Votre numéro de téléphone :"), // message coloré
+            message: chalk.green(" Votre numéro de téléphone :"), // message coloré
             // Validation : doit être 8 à 15 chiffres
             validate: (input) => /^\d{8,15}$/.test(input) ? true : "Numéro invalide (8-15 chiffres)",
         },
         {
             type: "password", // Saisie masquée
             name: "password",
-            message: chalk.green("🔒 Votre mot de passe :"),
+            message: chalk.green(" Votre mot de passe :"),
             mask: "*", // affichage masqué
             // Validation : minimum 4 caractères
             validate: (input) => input.length >= 4 ? true : "Au moins 4 caractères",
@@ -64,7 +64,7 @@ export async function seconnecter() {
     if (user) {
         // Affiche un message de succès avec mise en forme
         console.log(
-            chalk.bold.green.underline("✅ Connexion réussie !\n")
+            chalk.bold.green.underline(" Connexion réussie !\n")
         );
 
         // Envoie une notification système de bienvenue
@@ -79,7 +79,7 @@ export async function seconnecter() {
     } else {
         // Si utilisateur non trouvé, message d'erreur rouge
         console.log(
-            chalk.redBright("❌ Identifiants incorrects !\n")
+            chalk.redBright(" Identifiants incorrects !\n")
         );
     }
 }
@@ -91,7 +91,7 @@ export async function menuUtilisateur(user: Utilisateur) {
 
     // Affiche un message de bienvenue personnalisé en magenta, souligné et en gras
     console.log(
-        chalk.magenta.underline.bold(`\n👋 Bienvenue sur votre compte, ${user.prenom} !\n`)
+        chalk.magenta.underline.bold(`\n Bienvenue sur votre compte, ${user.prenom} !\n`)
     );
 
     // Demande à l'utilisateur ce qu'il souhaite faire
@@ -101,23 +101,23 @@ export async function menuUtilisateur(user: Utilisateur) {
             name: "action",
             message: chalk.blueBright("Que souhaitez-vous faire ?"),
             choices: [
-                "🆕 Créer un groupe", // Option pour créer un groupe
-                "📜 Voir mes groupes", // Voir ses groupes
-                "⚙️  Gérer mon compte", // Accéder à la gestion du compte
-                "🚪 Me déconnecter", // Déconnexion
+                " Créer un groupe", // Option pour créer un groupe
+                " Voir mes groupes", // Voir ses groupes
+                " Gérer mon compte", // Accéder à la gestion du compte
+                " Me déconnecter", // Déconnexion
             ],
         },
     ]);
 
     // En fonction du choix, appel de la fonction correspondante
     switch (action) {
-        case "🆕 Créer un groupe":
+        case " Créer un groupe":
             await createGroupe(user); // Fonction pour créer un groupe
             break;
-        case "📜 Voir mes groupes":
+        case " Voir mes groupes":
             await afficherGroupes(user); // Fonction pour voir ses groupes
             break;
-        case "⚙️  Gérer mon compte":
+        case " Gérer mon compte":
             // Accès à la gestion du compte
             const shouldLogout = await gestionCompte(user);
             // Si l'utilisateur doit se déconnecter après gestion
@@ -126,7 +126,7 @@ export async function menuUtilisateur(user: Utilisateur) {
                 return; // Fin de la session
             }
             break;
-        case "🚪 Me déconnecter":
+        case " Me déconnecter":
             // Simule la déconnexion
             console.log(chalk.green("🚪 Déconnexion effectuée !"));
             return; // Fin de la session

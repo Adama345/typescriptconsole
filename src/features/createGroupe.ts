@@ -12,7 +12,7 @@ export async function createGroupe(user: Utilisateur) {
 
     // Affiche un titre stylisé dans une boîte avec boxen, en vert gras
     console.log(
-        boxen(chalk.bold.green("✨ Création d’un nouveau Groupe ✨"), {
+        boxen(chalk.bold.green(" Création d’un nouveau Groupe ✨"), {
             padding: 1, // Padding intérieur
             margin: 1, // Marges extérieures
             borderColor: "yellow", // Couleur de la bordure
@@ -27,15 +27,15 @@ export async function createGroupe(user: Utilisateur) {
             name: "action",
             message: "Que voulez-vous faire ?",
             choices: [
-                { name: chalk.green("➕ Créer un nouveau groupe"), value: "create" },
-                { name: chalk.blue("🔙 Retour"), value: "back" },
+                { name: chalk.green(" Créer un nouveau groupe"), value: "create" },
+                { name: chalk.blue("  Retour"), value: "back" },
             ],
         },
     ]);
 
     // Si l'utilisateur choisit "back", retourne au menu précédent
     if (action === "back") {
-        console.log(chalk.yellow("🔙 Retour au menu précédent..."));
+        console.log(chalk.yellow(" Retour au menu précédent..."));
         return; // Fin de la fonction
     }
 
@@ -44,12 +44,12 @@ export async function createGroupe(user: Utilisateur) {
         {
             type: "input",
             name: "nom",
-            message: chalk.cyan("📝 Saisir le nom du groupe :"),
+            message: chalk.cyan(" Saisir le nom du groupe :"),
         },
         {
             type: "input",
             name: "description",
-            message: chalk.cyan("💬 Description du groupe :"),
+            message: chalk.cyan(" Description du groupe :"),
         },
     ]);
 
@@ -75,7 +75,7 @@ export async function createGroupe(user: Utilisateur) {
 
     // Affiche une boîte stylisée pour confirmer la création du groupe
     console.log(
-        boxen(chalk.bold.green("✅ Groupe créé avec succès !"), {
+        boxen(chalk.bold.green(" Groupe créé avec succès !"), {
             padding: 1,
             margin: 1,
             borderColor: "green", // Couleur de la bordure

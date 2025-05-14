@@ -8,24 +8,24 @@ export async function supprimerDepense(user: Utilisateur, groupeId: number) {
     const mesDepenses = depenses.filter((d) => d.groupeId === groupeId);
 
     if (mesDepenses.length === 0) {
-        console.log("\n❌ Aucune dépense à supprimer.\n");
+        console.log("\n Aucune dépense à supprimer.\n");
         return await afficherGroupes(user);
     }
 
-    console.log("\n🗑️ Liste des dépenses à supprimer :\n");
+    console.log("\n Liste des dépenses à supprimer :\n");
 
     const { depenseId } = await inquirer.prompt([
         {
             type: "list",
             name: "depenseId",
-            message: "❓ Quelle dépense souhaitez-vous supprimer ?",
+            message: " Quelle dépense souhaitez-vous supprimer ?",
             choices: [
                 ...mesDepenses.map((d) => ({
-                    name: `🔹 ${d.nom} (${d.montant} FCFA)`,
+                    name: ` ${d.nom} (${d.montant} FCFA)`,
                     value: d.id,
                 })),
                 new inquirer.Separator(),
-                { name: "⬅️ Retour au menu des groupes", value: "retour" },
+                { name: " Retour au menu des groupes", value: "retour" },
             ],
         },
     ]);

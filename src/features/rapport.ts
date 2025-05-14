@@ -9,7 +9,7 @@ export function genererRapportHebdomadaire(groupeId: number): RapportHebdomadair
     // Vérifier si le groupe existe
     const groupe = data.groups.find((g) => g.id === groupeId);
     if (!groupe) {
-        console.error(chalk.red("❌ Groupe non trouvé"));
+        console.error(chalk.red(" Groupe non trouvé"));
         return null;
     }
 
@@ -102,13 +102,13 @@ export async function afficherRapportHebdomadaire(rapport: RapportHebdomadaire, 
     const data = loadData();
 
     console.log(chalk.blue.bold("\n=== RAPPORT HEBDOMADAIRE ==="));
-    console.log(chalk.green(`📅 Période: ${rapport.dateDebut.toLocaleDateString()} - ${rapport.dateFin.toLocaleDateString()}`));
-    console.log(chalk.green(`👥 Groupe: ${data.groups.find(g => g.id === rapport.groupeId)?.nom}`));
+    console.log(chalk.green(` Période: ${rapport.dateDebut.toLocaleDateString()} - ${rapport.dateFin.toLocaleDateString()}`));
+    console.log(chalk.green(` Groupe: ${data.groups.find(g => g.id === rapport.groupeId)?.nom}`));
 
     console.log(chalk.yellow("\n--- Totaux ---"));
-    console.log(chalk.cyan(`💸 Dépenses totales: ${rapport.depensesTotal.toFixed(2)} FCFA`));
-    console.log(chalk.cyan(`💰 Paiements totaux: ${rapport.paiementsTotal.toFixed(2)} FCFA`));
-    console.log(chalk.magenta(`🔑 Solde: ${rapport.solde.toFixed(2)} FCFA`));
+    console.log(chalk.cyan(` Dépenses totales: ${rapport.depensesTotal.toFixed(2)} FCFA`));
+    console.log(chalk.cyan(` Paiements totaux: ${rapport.paiementsTotal.toFixed(2)} FCFA`));
+    console.log(chalk.magenta(` Solde: ${rapport.solde.toFixed(2)} FCFA`));
 
     console.log(chalk.yellow("\n--- Dépenses par membre ---"));
     rapport.depensesParMembre.forEach(item => {

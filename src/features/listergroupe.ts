@@ -1,13 +1,14 @@
 
 
+
+
+
 import { Groupe, Payer, Utilisateur } from "../model";
 import { loadGroupe, loadData, loadDepense, saveData } from "../depenseManager";
 import inquirer from "inquirer";
 import chalk from "chalk";
 import boxen from "boxen";
 import figlet from "figlet";
-
-
 
 
 import { deleteGroup } from "./supprimergroupe";
@@ -22,23 +23,17 @@ import { supprimerDepense } from "./supprimerDepense";
 import { modifierDepense } from "./modifierDepense";
 import { ajouterDepense } from "./ajouterDepense";
 import { quitterGroupe } from "./quitterGroupe";
-import {paymentHystorique} from "./historitquespaiements";
-
-
+import { paymentHystorique } from "./historitquespaiements";
 
 
 export async function afficherGroupes(user: Utilisateur) {
     let continuer = true;
 
 
-
-
     while (continuer) {
         const { groupes } = loadGroupe();
         const mesGroupes = groupes.filter(g => g.chefDeGroupe === user.id);
         const groupesRejoints = groupes.filter(g => g.membreId?.includes(user.id) && g.chefDeGroupe !== user.id);
-
-
 
 
         console.clear();
@@ -49,11 +44,9 @@ export async function afficherGroupes(user: Utilisateur) {
         );
 
 
-
-
         if (mesGroupes.length === 0 && groupesRejoints.length === 0) {
             console.log(
-                boxen(chalk.red.bold("🚫 Vous n'êtes membre d'aucun groupe."), {
+                boxen(chalk.red.bold(" Vous n'êtes membre d'aucun groupe."), {
                     padding: 1,
                     borderColor: "red",
                     borderStyle: "round",
@@ -62,8 +55,6 @@ export async function afficherGroupes(user: Utilisateur) {
             await new Promise(resolve => setTimeout(resolve, 2000));
             return;
         }
-
-
 
 
         const choixGroupes = [
@@ -82,23 +73,19 @@ export async function afficherGroupes(user: Utilisateur) {
                 }))
             ] : []),
             new inquirer.Separator(),
-            { name: chalk.gray("↩️ Retour au menu principal"), value: "retour" }
+            { name: chalk.gray(" Retour au menu principal"), value: "retour" }
         ];
-
-
 
 
         const { groupeChoisi } = await inquirer.prompt([
             {
                 type: "list",
                 name: "groupeChoisi",
-                message: chalk.yellow.bold("🎯 Sélectionnez un groupe :"),
+                message: chalk.yellow.bold(" Sélectionnez un groupe :"),
                 choices: choixGroupes,
                 pageSize: 10
             }
         ]);
-
-
 
 
         if (groupeChoisi === "retour") {
@@ -107,13 +94,9 @@ export async function afficherGroupes(user: Utilisateur) {
         }
 
 
-
-
         await menuGroupe(user, groupeChoisi);
     }
 }
-
-
 
 
 async function menuGroupe(user: Utilisateur, groupeId: number) {
@@ -122,17 +105,13 @@ async function menuGroupe(user: Utilisateur, groupeId: number) {
     const groupeSelectionne = groupes.find(g => g.id === groupeId);
    
     if (!groupeSelectionne) {
-        console.log(chalk.red("🚫 Groupe introuvable."));
+        console.log(chalk.red(" Groupe introuvable."));
         return;
     }
 
 
-
-
     const estCreateur = groupeSelectionne.chefDeGroupe === user.id;
     const estMembreRejoint = groupeSelectionne.membreId?.includes(user.id) && !estCreateur;
-
-
 
 
     while (dansLeMenu) {
@@ -147,80 +126,51 @@ async function menuGroupe(user: Utilisateur, groupeId: number) {
         );
 
 
-
-
         // Options de base pour tous les membres
         const optionsCommunes = [
             // Section Dépenses
-            new inquirer.Separator(chalk.cyan('💰 GESTION DES DÉPENSES')),
-            { name: "📜 Lister les dépenses", value: "listerDepenses" },
-             { name: " ", value: "space" }, 
-
-            { name: " Historique des paiements", value: "paymentHystorique" },
-              { name: " ", value: "space" }, 
-
-
+            new inquirer.Separator(chalk.cyan(' GESTION DES DÉPENSES')),
+            { name: " Lister les dépenses", value: "listerDepenses" },
 
 
             // Section Finances
-            new inquirer.Separator(chalk.cyan('💳 FINANCES')),
-            { name: "💰 Mon solde personnel", value: "monSoldePerso" },
-             { name: " ", value: "space" }, 
-            { name: "💸 Effectuer un paiement", value: "effectuerPaiement" },
-              { name: " ", value: "space" }, 
-
-
+            new inquirer.Separator(chalk.cyan(' FINANCES')),
+            { name: " Mon solde personnel", value: "monSoldePerso" },
+            { name: " Effectuer un paiement", value: "effectuerPaiement" },
+            { name: " Historiques des paiements", value: "HistoriquePaiement" },
 
 
             // Section Membres
-            new inquirer.Separator(chalk.cyan('👥 MEMBRES')),
-            { name: "👤 Voir les membres", value: "voirMembres" },
-            { name: " ", value: "space" }, 
+            new inquirer.Separator(chalk.cyan(' MEMBRES')),
+            { name: " Voir les membres", value: "voirMembres" },
+            { name: " Quitergroupe", value: "quitergroupe" },
         ];
-
-
 
 
         // Options réservées au créateur
         const optionsCreateur = [
             // Options dépenses supplémentaires
-            { name: "➕ Ajouter une dépense", value: "ajouterDepense" },
-              { name: " ", value: "space" }, 
-            { name: "✏️ Modifier mes dépenses", value: "modifierDepense" },
-             { name: " ", value: "space" }, 
-            { name: "🗑️ Supprimer une dépense", value: "supprimerDepense" },
-             { name: " ", value: "space" }, 
-           
-
-
+            { name: " Ajouter une dépense", value: "ajouterDepense" },
+            { name: " Modifier mes dépenses", value: "modifierDepense" },
+            { name: " Supprimer une dépense", value: "supprimerDepense" },
 
 
             // Options finances supplémentaires
-            { name: "📊 Générer un rapport complet", value: "afficherRapport" },
-             { name: " ", value: "space" }, 
-           
-
-
+            { name: " Générer un rapport complet", value: "afficherRapport" },
+            { name: " Historiques des paiements", value: "HistoriquePaiement" },
 
 
             // Options membres supplémentaires
-            { name: "➕ Ajouter des membres", value: "ajouterMembres" },
-              { name: " ", value: "space" }, 
-            { name: "❌ Supprimer un membre", value: "supprimerMembre" },
-             { name: " ", value: "space" }, 
-
-
+            { name: " Ajouter des membres", value: "ajouterMembres" },
+            { name: " Supprimer un membre", value: "supprimerMembre" },
 
 
             // Options gestion groupe
-            new inquirer.Separator(chalk.cyan('⚙️ GESTION DU GROUPE')),
-            { name: "✏️ Modifier le groupe", value: "modifierGroupe" },
-              { name: " ", value: "space" }, 
-            { name: "🗑️ Supprimer le groupe", value: "supprimerGroupe" },
-              { name: " ", value: "space" }, 
+            new inquirer.Separator(chalk.cyan(' GESTION DU GROUPE')),
+            { name: " Modifier le groupe", value: "modifierGroupe" },
+            { name: " Supprimer le groupe", value: "supprimerGroupe" },
+            { name: " Quiter le groupe", value: "quitterGroupe" },
         ];
-
-
 
 
         // Option pour quitter le groupe (uniquement membres rejoints)
@@ -229,25 +179,21 @@ async function menuGroupe(user: Utilisateur, groupeId: number) {
             : [];
 
 
-
-
         const { action } = await inquirer.prompt([
             {
-                type: "list",
+                type: "rawlist",
                 name: "action",
-                message: chalk.yellow.bold("📋 Que voulez-vous faire ?"),
+                message: chalk.yellow.bold(" Que voulez-vous faire ?"),
                 choices: [
                     ...optionsCommunes,
                     ...(estCreateur ? optionsCreateur : []),
                     ...optionQuitter,
                     new inquirer.Separator(),
-                    { name: "↩️ Retour à la liste des groupes", value: "retour" }
+                    { name: " Retour à la liste des groupes", value: "retour" }
                 ],
-                pageSize: 15
+               
             }
         ]);
-
-
 
 
         switch (action) {
@@ -256,23 +202,22 @@ async function menuGroupe(user: Utilisateur, groupeId: number) {
                 break;
 
 
-
-
             case "listerDepenses":
                 await afficherDepenses(groupeId, user, estCreateur);
                 break;
-
-
-            case "Historique des paiements":
-                await paymentHystorique(groupeId);
+            case "HistoriquePaiement":
+                const {depenses} = loadDepense()
+                const depense = depenses.find((g)=> g.groupeId === groupeId)
+                if (depense) {
+                    
+                    await paymentHystorique(depense.id);
+                }
                 break;
-
 
 
             case "modifierDepense":
                 await modifierDepense(user, groupeId);
                 break;
-
 
 
             case "supprimerDepense":
@@ -282,14 +227,12 @@ async function menuGroupe(user: Utilisateur, groupeId: number) {
                 break;
 
 
-
-
             case "monSoldePerso":
                 await afficherMonSoldePerso(user.id, groupeId);
                 break;
 
 
-
+         
 
 
             case "effectuerPaiement":
@@ -297,13 +240,9 @@ async function menuGroupe(user: Utilisateur, groupeId: number) {
                 break;
 
 
-
-
             case "voirMembres":
                 await afficherMembresDuGroupe(groupeSelectionne);
                 break;
-
-
 
 
             case "ajouterMembres":
@@ -313,8 +252,6 @@ async function menuGroupe(user: Utilisateur, groupeId: number) {
                 break;
 
 
-
-
             case "supprimerMembre":
                 if (estCreateur) {
                     await supprimerMembreDuGroupe(groupeSelectionne);
@@ -322,21 +259,17 @@ async function menuGroupe(user: Utilisateur, groupeId: number) {
                 break;
 
 
-
-
             case "afficherRapport":
                 if (estCreateur) {
                     const rapport = genererRapportHebdomadaire(groupeId); // Utilisez groupeId au lieu de groupeChoisi
                     if (rapport) {
-                        afficherRapportHebdomadaire(rapport);
-                        await afficherRapportHebdomadaire(rapport, {
-                            pdf: "rapport_hebdomadaire.pdf",
-                        });
-                    }
+                       afficherRapportHebdomadaire(rapport);
+                      await afficherRapportHebdomadaire(rapport, {
+                          pdf: "rapport_hebdomadaire.pdf",
+                     });
+                     }
                 }
                 break;
-
-
 
 
             case "modifierGroupe":
@@ -344,8 +277,6 @@ async function menuGroupe(user: Utilisateur, groupeId: number) {
                     await modifierGroupe(groupeSelectionne);
                 }
                 break;
-
-
 
 
             case "supprimerGroupe":
@@ -356,16 +287,15 @@ async function menuGroupe(user: Utilisateur, groupeId: number) {
                 break;
 
 
-
-
             case "quitterGroupe":
                 if (estMembreRejoint) {
                     await handleQuitterGroupe(user, groupeId);
                     dansLeMenu = false;
+                }else{
+                    await handleQuitterGroupe(user, groupeId);
+                    dansLeMenu = false;
                 }
                 break;
-
-
 
 
             case "retour":
@@ -374,9 +304,7 @@ async function menuGroupe(user: Utilisateur, groupeId: number) {
         }
 
 
-
-
-        if (!dansLeMenu && action !== "retour") {
+        if (dansLeMenu && action !== "retour") {
             await inquirer.prompt([
                 {
                     type: "input",
@@ -386,6 +314,15 @@ async function menuGroupe(user: Utilisateur, groupeId: number) {
             ]);
         }
     }
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -401,6 +338,7 @@ function generateId(): number {
 
 
 
+
 // ✅ Fonction pour afficher le solde personnel
 // Fonction pour afficher le solde personnel (pour tous les membres)
 async function afficherMonSoldePerso(userId: number, groupeId: number) {
@@ -408,35 +346,27 @@ async function afficherMonSoldePerso(userId: number, groupeId: number) {
     const groupe = data.groups.find((g: any) => g.id === groupeId);
    
     if (!groupe) {
-        console.log(chalk.red("🚫 Groupe introuvable."));
+        console.log(chalk.red(" Groupe introuvable."));
         return;
     }
-
-
 
 
     const utilisateur = data.users.find((u: any) => u.id === userId);
     if (!utilisateur) {
-        console.log(chalk.red("🚫 Utilisateur introuvable."));
+        console.log(chalk.red(" Utilisateur introuvable."));
         return;
     }
-
-
 
 
     const depensesGroupe = data.depenses.filter((d: any) => d.groupeId === groupeId);
     if (depensesGroupe.length === 0) {
-        console.log(chalk.yellow("ℹ️ Aucune dépense enregistrée dans ce groupe."));
+        console.log(chalk.yellow(" Aucune dépense enregistrée dans ce groupe."));
         return;
     }
 
 
-
-
     let totalPaye = 0;
     let totalDu = 0;
-
-
 
 
     // Calcul des paiements effectués
@@ -445,8 +375,6 @@ async function afficherMonSoldePerso(userId: number, groupeId: number) {
         depensesGroupe.some((d: any) => d.id === p.depenseId)
     );
     totalPaye = paiementsMembre.reduce((sum: number, p: Payer) => sum + p.sold, 0);
-
-
 
 
     // Calcul des parts dues
@@ -458,30 +386,26 @@ async function afficherMonSoldePerso(userId: number, groupeId: number) {
     });
 
 
-
-
     const balance = totalPaye - totalDu;
 
 
-
-
     // Affichage détaillé
-    console.log(chalk.blue.bold("\n💰 VOTRE SOLDE PERSONNEL"));
+    console.log(chalk.blue.bold("\n VOTRE SOLDE PERSONNEL"));
     console.log(chalk.gray("════════════════════════════════════"));
-    console.log(`👤 Membre: ${chalk.yellow(utilisateur.nom)} (${chalk.blue(utilisateur.email)})`);
-    console.log(`🏷️ Groupe: ${chalk.cyan(groupe.nom)}`);
+    console.log(` Membre: ${chalk.yellow(utilisateur.nom)} (${chalk.blue(utilisateur.email)})`);
+    console.log(` Groupe: ${chalk.cyan(groupe.nom)}`);
     console.log(chalk.gray("────────────────────────────────────────"));
-    console.log(`💵 Total payé: ${chalk.green(totalPaye + " FCFA")}`);
-    console.log(`🏷️ Total dû: ${chalk.red(totalDu + " FCFA")}`);
+    console.log(` Total payé: ${chalk.green(totalPaye + " FCFA")}`);
+    console.log(` Total dû: ${chalk.red(totalDu + " FCFA")}`);
     console.log(chalk.gray("────────────────────────────────────────"));
    
     const soldeColor = balance >= 0 ? chalk.green : chalk.red;
-    console.log(`📊 Votre solde: ${soldeColor(balance + " FCFA")}`);
+    console.log(` Votre solde: ${soldeColor(balance + " FCFA")}`);
    
     if (balance > 0) {
-        console.log(chalk.green("\n✅ Vous êtes en crédit dans ce groupe"));
+        console.log(chalk.green("\n Vous êtes en crédit dans ce groupe"));
     } else if (balance < 0) {
-        console.log(chalk.red("\n⚠️ Vous devez de l'argent dans ce groupe"));
+        console.log(chalk.red("\n Vous devez de l'argent dans ce groupe"));
        
         // Proposer un paiement si l'utilisateur a une dette
         const { payer } = await inquirer.prompt([
@@ -497,47 +421,37 @@ async function afficherMonSoldePerso(userId: number, groupeId: number) {
             await menuPaiements(utilisateur);
         }
     } else {
-        console.log(chalk.blue("\nℹ️ Votre solde est à zéro"));
+        console.log(chalk.blue("\n Votre solde est à zéro"));
     }
 }
 
 
-
-
-// ✅ Fonction pour payer tout ce qu'on doit
+//  Fonction pour payer tout ce qu'on doit
 async function payerCeQueJeDois(userId: number, groupeId: number, methode: "espèces" | "mobile_money" | "carte_bancaire" = "espèces") {
     const data = loadData();
     const groupe = data.groups.find((g: any) => g.id === groupeId);
     if (!groupe) {
-        console.log(chalk.red("🚫 Groupe introuvable."));
+        console.log(chalk.red(" Groupe introuvable."));
         return;
     }
-
-
 
 
     const utilisateur = data.users.find((u: any) => u.id === userId);
     if (!utilisateur) {
-        console.log(chalk.red("🚫 Utilisateur introuvable."));
+        console.log(chalk.red(" Utilisateur introuvable."));
         return;
     }
-
-
 
 
     const depensesGroupe = data.depenses.filter((d: any) => d.groupeId === groupeId);
     if (depensesGroupe.length === 0) {
-        console.log(chalk.yellow("ℹ️ Aucune dépense enregistrée dans ce groupe."));
+        console.log(chalk.yellow(" Aucune dépense enregistrée dans ce groupe."));
         return;
     }
 
 
-
-
     let totalPaye = 0;
     let totalDu = 0;
-
-
 
 
     const paiementsMembre = data.Payer.filter((p: Payer) =>
@@ -545,8 +459,6 @@ async function payerCeQueJeDois(userId: number, groupeId: number, methode: "esp�
         depensesGroupe.some((d: any) => d.id === p.depenseId)
     );
     totalPaye = paiementsMembre.reduce((sum: number, p: Payer) => sum + p.sold, 0);
-
-
 
 
     depensesGroupe.forEach((depense: any) => {
@@ -557,19 +469,13 @@ async function payerCeQueJeDois(userId: number, groupeId: number, methode: "esp�
     });
 
 
-
-
     const montantDu = totalDu - totalPaye;
 
 
-
-
     if (montantDu <= 0) {
-        console.log(chalk.green("\n✅ Vous n’avez rien à payer. Votre solde est déjà à jour."));
+        console.log(chalk.green("\n Vous n’avez rien à payer. Votre solde est déjà à jour."));
         return;
     }
-
-
 
 
     // Paiement pour chaque dépense
@@ -578,18 +484,12 @@ async function payerCeQueJeDois(userId: number, groupeId: number, methode: "esp�
             const partIndividuelle = depense.montant / depense.membreId.length;
 
 
-
-
             const dejaPaye = paiementsMembre
                 .filter((p: Payer) => p.depenseId === depense.id)
                 .reduce((sum: number, p: Payer) => sum + p.sold, 0);
 
 
-
-
             const resteAPayer = partIndividuelle - dejaPaye;
-
-
 
 
             if (resteAPayer > 0) {
@@ -603,55 +503,43 @@ async function payerCeQueJeDois(userId: number, groupeId: number, methode: "esp�
                     methode: methode
                 };
                 data.Payer.push(paiement);
-                console.log(chalk.green(`💸 Paiement de ${resteAPayer} FCFA validé pour dépense ID: ${depense.id}`));
+                console.log(chalk.green(` Paiement de ${resteAPayer} FCFA validé pour dépense ID: ${depense.id}`));
             }
         }
     });
 
 
-
-
     saveData(data);
-    console.log(chalk.blue.bold(`\n✅ Tous vos paiements ont été enregistrés. Vous êtes maintenant à jour !`));
+    console.log(chalk.blue.bold(`\n Tous vos paiements ont été enregistrés. Vous êtes maintenant à jour !`));
 }
 
 
-
-
-// ✅ Fonction pour payer un montant partiel
+//  Fonction pour payer un montant partiel
 async function payerPartiellement(userId: number, groupeId: number, montantPaye: number, methode: "espèces" | "mobile_money" | "carte_bancaire" = "espèces") {
     const data = loadData();
     const groupe = data.groups.find((g: any) => g.id === groupeId);
     if (!groupe) {
-        console.log(chalk.red("🚫 Groupe introuvable."));
+        console.log(chalk.red(" Groupe introuvable."));
         return;
     }
-
-
 
 
     const utilisateur = data.users.find((u: any) => u.id === userId);
     if (!utilisateur) {
-        console.log(chalk.red("🚫 Utilisateur introuvable."));
+        console.log(chalk.red(" Utilisateur introuvable."));
         return;
     }
-
-
 
 
     const depensesGroupe = data.depenses.filter((d: any) => d.groupeId === groupeId);
     if (depensesGroupe.length === 0) {
-        console.log(chalk.yellow("ℹ️ Aucune dépense enregistrée dans ce groupe."));
+        console.log(chalk.yellow(" Aucune dépense enregistrée dans ce groupe."));
         return;
     }
 
 
-
-
     let totalPaye = 0;
     let totalDu = 0;
-
-
 
 
     const paiementsMembre = data.Payer.filter((p: Payer) =>
@@ -659,8 +547,6 @@ async function payerPartiellement(userId: number, groupeId: number, montantPaye:
         depensesGroupe.some((d: any) => d.id === p.depenseId)
     );
     totalPaye = paiementsMembre.reduce((sum: number, p: Payer) => sum + p.sold, 0);
-
-
 
 
     depensesGroupe.forEach((depense: any) => {
@@ -671,32 +557,22 @@ async function payerPartiellement(userId: number, groupeId: number, montantPaye:
     });
 
 
-
-
     const montantDu = totalDu - totalPaye;
 
 
-
-
     if (montantDu <= 0) {
-        console.log(chalk.green("\n✅ Vous n’avez rien à payer. Votre solde est déjà à jour."));
+        console.log(chalk.green("\n Vous n’avez rien à payer. Votre solde est déjà à jour."));
         return;
     }
-
-
 
 
     if (montantPaye > montantDu) {
-        console.log(chalk.red(`🚫 Vous essayez de payer plus que ce que vous devez (${montantDu} FCFA)`));
+        console.log(chalk.red(` Vous essayez de payer plus que ce que vous devez (${montantDu} FCFA)`));
         return;
     }
 
 
-
-
     let resteAPayer = montantPaye;
-
-
 
 
     // Paiement partiel réparti sur les dépenses
@@ -705,18 +581,12 @@ async function payerPartiellement(userId: number, groupeId: number, montantPaye:
             const partIndividuelle = depense.montant / depense.membreId.length;
 
 
-
-
             const dejaPaye = paiementsMembre
                 .filter((p: Payer) => p.depenseId === depense.id)
                 .reduce((sum: number, p: Payer) => sum + p.sold, 0);
 
 
-
-
             const aPayerPourCetteDepense = Math.min(partIndividuelle - dejaPaye, resteAPayer);
-
-
 
 
             if (aPayerPourCetteDepense > 0) {
@@ -733,25 +603,15 @@ async function payerPartiellement(userId: number, groupeId: number, montantPaye:
                 resteAPayer -= aPayerPourCetteDepense;
 
 
-
-
-                console.log(chalk.green(`💸 Paiement de ${aPayerPourCetteDepense} FCFA validé pour dépense ID: ${depense.id}`));
+                console.log(chalk.green(` Paiement de ${aPayerPourCetteDepense} FCFA validé pour dépense ID: ${depense.id}`));
             }
         }
     }
 
 
-
-
     saveData(data);
-    console.log(chalk.blue.bold(`\n✅ Paiement partiel de ${montantPaye} FCFA enregistré avec succès.`));
+    console.log(chalk.blue.bold(`\n Paiement partiel de ${montantPaye} FCFA enregistré avec succès.`));
 }
-
-
-
-
-
-
 
 
 
@@ -767,20 +627,14 @@ async function afficherDepenses(groupeId: number, user: Utilisateur, estCreateur
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 
-
-
-    console.log(chalk.green.bold("\n💰 DÉPENSES DU GROUPE"));
+    console.log(chalk.green.bold("\n DÉPENSES DU GROUPE"));
     console.log(chalk.gray("════════════════════════════════════"));
 
 
-
-
     if (depensesGroupe.length === 0) {
-        console.log(chalk.yellow("ℹ️ Aucune dépense enregistrée dans ce groupe"));
+        console.log(chalk.yellow(" Aucune dépense enregistrée dans ce groupe"));
         return;
     }
-
-
 
 
     const depensesAAfficher = estCreateur
@@ -788,33 +642,25 @@ async function afficherDepenses(groupeId: number, user: Utilisateur, estCreateur
         : depensesGroupe.filter(d => d.membreId.includes(user.id));
 
 
-
-
     if (depensesAAfficher.length === 0) {
-        console.log(chalk.yellow("ℹ️ Vous n'avez pas encore créé de dépenses dans ce groupe"));
+        console.log(chalk.yellow(" Vous n'avez pas encore créé de dépenses dans ce groupe"));
         return;
     }
-
-
 
 
     depensesAAfficher.forEach((d, index) => {
         const createur = data.users.find(u => u.id === d.chefDeGroupe);
 
 
-
-
         console.log(
             `${chalk.bold(`#${index + 1}`)} ${chalk.yellow(d.nom)}\n` +
-            `  💰 Montant: ${chalk.cyan(d.montant + " FCFA")}\n` +
-            `  📅 Date: ${chalk.magenta(new Date(d.date).toLocaleDateString())}\n` +
-            `  👤 Créateur: ${chalk.blue(createur?.id === user.id ? 'Vous' : createur?.nom || 'Inconnu')}\n` +
+            `   Montant: ${chalk.cyan(d.montant + " FCFA")}\n` +
+            `   Date: ${chalk.magenta(new Date(d.date).toLocaleDateString())}\n` +
+            `   Créateur: ${chalk.blue(createur?.id === user.id ? 'Vous' : createur?.nom || 'Inconnu')}\n` +
             chalk.gray("────────────────────────────────────────")
         );
     });
 }
-
-
 
 
 async function handleSupprimerGroupe(groupe: Groupe) {
@@ -822,19 +668,17 @@ async function handleSupprimerGroupe(groupe: Groupe) {
         {
             type: "confirm",
             name: "confirm",
-            message: chalk.red.bold("⚠️ Voulez-vous vraiment supprimer définitivement ce groupe ?"),
+            message: chalk.red.bold(" Voulez-vous vraiment supprimer définitivement ce groupe ?"),
             default: false
         }
     ]);
    
     if (confirm) {
         await deleteGroup(groupe);
-        console.log(chalk.green("✅ Groupe supprimé avec succès"));
+        console.log(chalk.green(" Groupe supprimé avec succès"));
         await new Promise(resolve => setTimeout(resolve, 1500));
     }
 }
-
-
 
 
 async function handleQuitterGroupe(user: Utilisateur, groupeId: number) {
@@ -842,19 +686,15 @@ async function handleQuitterGroupe(user: Utilisateur, groupeId: number) {
         {
             type: "confirm",
             name: "confirm",
-            message: chalk.yellow.bold("⚠️ Voulez-vous vraiment quitter ce groupe ?"),
+            message: chalk.yellow.bold(" Voulez-vous vraiment quitter ce groupe ?"),
             default: false
         }
     ]);
    
     if (confirm) {
         await quitterGroupe(user, groupeId);
-        console.log(chalk.green("✅ Vous avez quitté le groupe avec succès"));
+        console.log(chalk.green(" Vous avez quitté le groupe avec succès"));
         await new Promise(resolve => setTimeout(resolve, 1500));
     }
 }
-}
-
-
-
 

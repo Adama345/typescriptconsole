@@ -16,7 +16,7 @@ export async function ajouterMembreAuGroupe(groupe: Groupe) {
     }
 
     // Affichage de la liste des utilisateurs disponibles
-    console.log(`\n👥 Utilisateurs disponibles pour le groupe "${groupe.nom}" :\n`);
+    console.log(`\n Utilisateurs disponibles pour le groupe "${groupe.nom}" :\n`);
     users.forEach((user, index) => {
         console.log(`🔹 ${index + 1}. ${user.nom} ${user.prenom} | 📞 ${user.telephone}`);
     });
@@ -54,7 +54,7 @@ export async function ajouterMembreAuGroupe(groupe: Groupe) {
         groupe.membreId.push(utilisateurChoisi.id);
         console.log(`\n${utilisateurChoisi.nom} ${utilisateurChoisi.prenom} a été ajouté au groupe "${groupe.nom}".`);
 
-        // 🔔 Notification système locale
+        //  Notification système locale
         const notifier = require("node-notifier");
         notifier.notify({
             title: "Succès",
@@ -62,7 +62,7 @@ export async function ajouterMembreAuGroupe(groupe: Groupe) {
             icon: "img/icon.jpg",
         });
 
-        // ✉️ Configuration et envoi d'email de notification
+        //  Configuration et envoi d'email de notification
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com", // Serveur SMTP de Gmail
             port: 587, // Port standard pour SMTP
@@ -86,7 +86,7 @@ export async function ajouterMembreAuGroupe(groupe: Groupe) {
         console.log("\nL'utilisateur est déjà membre de ce groupe.");
     }
 
-    // 💾 Sauvegarde des modifications dans la base de données
+    //  Sauvegarde des modifications dans la base de données
     const { groupes } = loadGroupe();
     const index = groupes.findIndex((g) => g.id === groupe.id);
     if (index !== -1) {

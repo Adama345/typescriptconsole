@@ -19,7 +19,7 @@ export async function ajouterDepense(user: Utilisateur, groupeIdParam?: number) 
 
     // Vérification si l'utilisateur appartient à des groupes
     if (mesGroupes.length === 0) {
-        console.log(chalk.red("❌ Vous n'êtes membre d'aucun groupe."));
+        console.log(chalk.red(" Vous n'êtes membre d'aucun groupe."));
         return;
     }
 
@@ -36,14 +36,14 @@ export async function ajouterDepense(user: Utilisateur, groupeIdParam?: number) 
                 message: chalk.cyan("Dans quel groupe voulez-vous ajouter une dépense ?"),
                 choices: [
                     ...mesGroupes.map((g) => ({ name: g.nom, value: g.id })),
-                    { name: chalk.yellow("🔙 Retour au menu"), value: "retour" }, // Option de retour
+                    { name: chalk.yellow(" Retour au menu"), value: "retour" }, // Option de retour
                 ],
             },
         ]);
         
         // Gestion du retour au menu
         if (selectedGroupeId === "retour") {
-            console.log(chalk.yellow("🔙 Retour au menu principal..."));
+            console.log(chalk.yellow(" Retour au menu principal..."));
             return;
         }
         groupeId = selectedGroupeId;
@@ -52,7 +52,7 @@ export async function ajouterDepense(user: Utilisateur, groupeIdParam?: number) 
     // Vérification de l'existence du groupe
     const groupe = groupes.find((g) => g.id === groupeId!);
     if (!groupe) {
-        console.log(chalk.red("❌ Groupe introuvable."));
+        console.log(chalk.red(" Groupe introuvable."));
         return;
     }
 
@@ -118,7 +118,7 @@ export async function ajouterDepense(user: Utilisateur, groupeIdParam?: number) 
 
     // Confirmation visuelle
     console.log(
-        boxen(chalk.green("✅ Dépense ajoutée avec succès !"), {
+        boxen(chalk.green(" Dépense ajoutée avec succès !"), {
             padding: 1,
             margin: 1,
             borderColor: "green",

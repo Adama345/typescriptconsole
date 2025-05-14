@@ -17,7 +17,7 @@ export async function modifierDepense(user: Utilisateur, groupeId: number) {
 
     // Si aucune dépense dans ce groupe, on affiche un message et revient au menu
     if (depensesDuGroupe.length === 0) {
-        console.log("\n❌ Aucune dépense trouvée dans ce groupe.\n");
+        console.log("\n Aucune dépense trouvée dans ce groupe.\n");
         return await afficherGroupes(user);
     }
 
@@ -29,14 +29,14 @@ export async function modifierDepense(user: Utilisateur, groupeId: number) {
         {
             type: "list", // Liste déroulante
             name: "depenseId",
-            message: "📝 Sélectionnez la dépense à modifier :",
+            message: " Sélectionnez la dépense à modifier :",
             choices: [
                 ...depensesDuGroupe.map((d) => ({
                     name: `🔹 ${d.nom} (${d.montant} FCFA)`,
                     value: d.id,
                 })),
                 new inquirer.Separator(), // Séparateur visuel
-                { name: "⬅️ Retour au menu des groupes", value: "retour" }, // Option de retour
+                { name: " Retour au menu des groupes", value: "retour" }, // Option de retour
             ],
         },
     ]);
@@ -49,30 +49,30 @@ export async function modifierDepense(user: Utilisateur, groupeId: number) {
     // Trouve la dépense sélectionnée par son identifiant
     const dep = depenses.find((d) => d.id === depenseId);
     if (!dep) {
-        console.log("❌ Erreur : dépense introuvable.");
+        console.log(" Erreur : dépense introuvable.");
         return;
     }
 
     // Affiche un message de modification de la dépense sélectionnée
-    console.log(`\n✏️ Modification de la dépense : ${dep.nom} (${dep.montant} FCFA)`);
+    console.log(`\n Modification de la dépense : ${dep.nom} (${dep.montant} FCFA)`);
 
     // Demande les nouvelles valeurs (nom et montant)
     const { nom, montant } = await inquirer.prompt([
         {
             type: "input",
             name: "nom",
-            message: "🔤 Nouveau nom (laisser vide pour ne pas changer) :",
+            message: " Nouveau nom (laisser vide pour ne pas changer) :",
             default: dep.nom, // Valeur par défaut : current nom
         },
         {
             type: "input",
             name: "montant",
-            message: "💰 Nouveau montant (en FCFA) :",
+            message: " Nouveau montant (en FCFA) :",
             default: dep.montant.toString(),
             validate: (value) => {
                 const val = parseFloat(value);
                 if (isNaN(val) || val <= 0) {
-                    return "❗ Le montant doit être un nombre supérieur à 0.";
+                    return " Le montant doit être un nombre supérieur à 0.";
                 }
                 return true; // Validation OK
             },
@@ -96,7 +96,7 @@ export async function modifierDepense(user: Utilisateur, groupeId: number) {
     });
 
     // Confirme l'utilisateur que la modification a réussi
-    console.log("\n✅ Dépense modifiée avec succès !\n");
+    console.log("\n Dépense modifiée avec succès !\n");
 
     // Retourne au menu principal des groupes
     return await afficherGroupes(user);

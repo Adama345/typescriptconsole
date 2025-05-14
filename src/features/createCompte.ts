@@ -55,7 +55,7 @@ export async function createAcount() {
     ]);
 
     // Lance une animation de chargement
-    const spinner = ora("Création du compte...").start();
+
 
     // Petite pause pour améliorer l'expérience utilisateur
     await new Promise((resolve) => setTimeout(resolve, 1500));

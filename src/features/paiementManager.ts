@@ -154,7 +154,7 @@ async function processPaiement(depenseId: number, membreId: number) {
 
     // Confirmation du paiement
     console.log(
-        chalk.green(`\n✅ Paiement de ${montant} FCFA enregistré avec succès!`)
+        chalk.green(`\n Paiement de ${montant} FCFA enregistré avec succès!`)
     );
     console.log(chalk.green(`Méthode: ${methode}`));
     console.log(chalk.green(`Date: ${nouveauPaiement.date.toLocaleString()}`));

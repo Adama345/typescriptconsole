@@ -62,6 +62,6 @@ export async function modifierGroupe(group: Groupe) {
         savegroupe(groupes); // Sauvegarde la nouvelle liste
         console.log("Informations du groupe mises à jour !");
     } else {
-        console.log("🛑 Groupe introuvable lors de la mise à jour");
+        console.log(" Groupe introuvable lors de la mise à jour");
     }
 }

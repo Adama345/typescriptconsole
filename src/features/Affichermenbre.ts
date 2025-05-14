@@ -25,12 +25,12 @@ export async function afficherMembresDuGroupe(groupe: Groupe) {
 
     // Vérifie si le groupe n'a pas de membres ou si la liste est vide
     if (!groupe.membreId || groupe.membreId.length === 0) {
-        console.log("\n❌ Aucun membre dans ce groupe.\n");
+        console.log("\n Aucun membre dans ce groupe.\n");
         return; // Sort de la fonction si aucun membre
     }
 
     // Affiche le nom du groupe entre astérisques
-    console.log(`\n👥 Membres du groupe **"${groupe.nom}"** :\n`);
+    console.log(`\n Membres du groupe **"${groupe.nom}"** :\n`);
 
     // Parcourt chaque ID de membre dans le groupe
     groupe.membreId.forEach((id) => {
@@ -39,11 +39,11 @@ export async function afficherMembresDuGroupe(groupe: Groupe) {
         if (membre) {
             // Affiche les informations du membre formatées
             console.log(
-                `\n🔹 **${membre.nom} ${membre.prenom}**\n   📞 Téléphone: **${membre.telephone}**\n`
+                `\n **${membre.nom} ${membre.prenom}**\n   📞 Téléphone: **${membre.telephone}**\n`
             );
         }
     });
 
     // Affiche un message de fin stylisé
-    console.log("\n🌟 Fin de la liste des membres.\n");
+    console.log("\n Fin de la liste des membres.\n");
 }
